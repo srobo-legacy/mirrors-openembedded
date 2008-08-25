@@ -43,7 +43,7 @@ python write_specfile() {
 			del files[files.index(r)]
 		except ValueError:
 			pass
-	if not files:
+	if not files and bb.data.getVar('ALLOW_EMPTY', d) != "1":
 		from bb import note
 		note("Not creating empty archive for %s" % (bb.data.expand('${PKG}-${PV}-${PR}${DISTRO_PR}', d, True))
 		return
@@ -62,10 +62,11 @@ python write_specfile() {
 		if out_vartranslate[var][0] == "%":
 			continue
 		val = bb.data.getVar(var, d, 1)
-		if var == "RDEPENDS":
-			val = val.split()[0]
 		fd.write("%s\t: %s\n" % (out_vartranslate[var], val))
-	rdepends = " ".join(bb.utils.explode_deps(bb.data.getVar('RDEPENDS', d, True)))
+
+	bb.build.exec_func("mapping_rename_hook", d)
+	rdepends = " ".join(bb.utils.explode_deps(bb.data.getVar('RDEPENDS', d, True) or ""))
+
 	if rdepends:
 		fd.write("Requires: %s\n" % rdepends)
         fd.write("Release\t: %s\n" % bb.data.expand('${PR}${DISTRO_PR}', d, True)
@@ -158,6 +159,9 @@ python do_package_rpm () {
 		pkgoutdir = outdir
 		bb.mkdirhier(pkgoutdir)
 		bb.data.setVar('OUTSPECFILE', os.path.join(workdir, "%s.spec" % pkg), localdata)
+		# Save the value of RPMBUILD expanded into the new dictonary so any 
+		# changes in the compoents that make up workdir don't break packaging
+		bb.data.setVar('RPMBUILD', bb.data.getVar("RPMBUILD", d, True), localdata)
 		bb.build.exec_func('write_specfile', localdata)
 		bb.utils.unlockfile(lf)
 }
