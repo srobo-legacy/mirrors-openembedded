@@ -12,9 +12,14 @@ RPM="rpm ${RPMOPTS}"
 python write_specfile() {
 	from bb import data, build
 	import sys
+
+	version = bb.data.getVar('PV', d, 1)
+	version = version.replace('-', '+')
+	bb.data.setVar('RPMPV', version, d)
+
 	out_vartranslate = {
 		"PKG": "Name",
-		"PV": "Version",
+		"RPMPV": "Version",
 		"DESCRIPTION": "%description",
 		"ROOT": "BuildRoot",
 		"LICENSE": "License",
@@ -67,10 +72,24 @@ python write_specfile() {
 	fd.write("AutoReqProv: no\n")
 
 	bb.build.exec_func("mapping_rename_hook", d)
-	rdepends = " ".join(bb.utils.explode_deps(bb.data.getVar('RDEPENDS', d, True) or ""))
+	rdepends = bb.utils.explode_dep_versions(bb.data.getVar('RDEPENDS', d, True) or "")
+	for dep in rdepends:
+		ver = rdepends[dep]
+		if dep and ver:
+			ver = ver.replace('-', '+')
+			fd.write("Requires: %s %s\n" % (dep, ver))
+		elif dep:
+			fd.write("Requires: %s\n" % (dep))
 
-	if rdepends:
-		fd.write("Requires: %s\n" % rdepends)
+	rdepends = bb.utils.explode_dep_versions(bb.data.getVar('RRECOMMENDS', d, True) or "")
+	for dep in rdepends:
+		ver = rdepends[dep]
+		if dep and ver:
+			ver = ver.replace('-', '+')
+			fd.write("Recommends: %s %s\n" % (dep, ver))
+		elif dep:
+			fd.write("Recommends: %s\n" % (dep))
+
         fd.write("Release\t: %s\n" % bb.data.expand('${PR}${DISTRO_PR}', d, True)
 	fd.write("Summary\t: .\n")
 
@@ -82,8 +101,6 @@ python write_specfile() {
 
 	fd.write("%files\n")
 	for file in files:
-		if file[0] != '/':
-			fd.write('/')
 		fd.write("%s\n" % file)
 
 	fd.close()
@@ -97,8 +114,8 @@ python write_specfile() {
 	bb.build.exec_func('BUILDSPEC', d)
 
 	# move the rpm into the pkgoutdir
-	rpm = bb.data.expand('${RPMBUILDPATH}/RPMS/${TARGET_ARCH}/${PKG}-${PV}-${PR}${DISTRO_PR}.${TARGET_ARCH}.rpm', d)
-	outrpm = bb.data.expand('${DEPLOY_DIR_RPM}/${PKG}-${PV}-${PR}${DISTRO_PR}.${TARGET_ARCH}.rpm', d)
+	rpm = bb.data.expand('${RPMBUILDPATH}/RPMS/${TARGET_ARCH}/${PKG}-${RPMPV}-${PR}.${TARGET_ARCH}.rpm', d)
+	outrpm = bb.data.expand('${DEPLOY_DIR_RPM}/${PKG}-${RPMPV}-${PR}.${TARGET_ARCH}.rpm', d)
 	bb.movefile(rpm, outrpm)
 }
 
