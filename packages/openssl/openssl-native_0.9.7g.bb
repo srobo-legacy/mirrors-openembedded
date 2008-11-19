@@ -1,6 +1,6 @@
-inherit pkgconfig native
-
 require openssl.inc
+
+inherit pkgconfig native
 
 PR = "r2"
 
