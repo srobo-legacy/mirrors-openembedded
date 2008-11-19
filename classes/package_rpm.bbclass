@@ -196,7 +196,7 @@ python do_package_rpm () {
 		bb.data.update_data(localdata)
 
 		basedir = os.path.join(os.path.dirname(root))
-        pkgoutdir = os.path.join(outdir, bb.data.getVar('PACKAGE_ARCH', localdata, 1))
+		pkgoutdir = os.path.join(outdir, bb.data.getVar('PACKAGE_ARCH', localdata, 1))
 		bb.mkdirhier(pkgoutdir)
 		bb.data.setVar('OUTSPECFILE', os.path.join(workdir, "%s.spec" % pkg), localdata)
 		# Save the value of RPMBUILD expanded into the new dictonary so any 
