@@ -1,8 +1,8 @@
-require openssl.inc
-
 inherit pkgconfig native
 
 DEFAULT_PREFERENCE = "-1"
+
+require openssl.inc
 
 PR = "r1"
 
