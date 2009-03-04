@@ -2,7 +2,7 @@ DESCRIPTION = "The RPM Package Manager."
 HOMEPAGE = "http://rpm.org/"
 LICENSE = "LGPL GPL"
 DEPENDS = "zlib beecrypt file popt python"
-PR = "r10"
+PR = "r11"
 
 SRC_URI = "http://www.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.3.tar.gz \
            file://external-tools.patch;patch=1 \
@@ -12,15 +12,15 @@ SRC_URI = "http://www.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.3.tar.gz \
 	   file://missingok.patch;patch=1;pnum=0 \
 	   file://extcond.patch;patch=1;pnum=0"
 
-inherit autotools gettext
+inherit autotools gettext distutils-base
 
 S = "${WORKDIR}/rpm-${PV}"
 
 acpaths = "-I ${S}/db/dist/aclocal -I ${S}/db/dist/aclocal_java"
 
-EXTRA_OECONF = "--with-python=$PYTHONVER \
-		--with-python-incdir=${STAGING_INCDIR}/python$PYTHONVER \
-		--with-python-libdir=${libdir}/python$PYTHONVER \
+EXTRA_OECONF = "--with-python \
+		--with-python-incdir=${STAGING_INCDIR}/${PYTHON_DIR} \
+		--with-python-libdir=${libdir}/${PYTHON_DIR} \
 		--without-apidocs \
 		--without-selinux \
 		--without-lua \
@@ -93,16 +93,3 @@ do_configure () {
 		    --with-pic
 
 }
-
-def rpm_python_version(d):
-	import os, bb
-	staging_incdir = bb.data.getVar( "STAGING_INCDIR", d, 1 )
-	if os.path.exists( "%s/python2.6" % staging_incdir ): return "2.6"
-	if os.path.exists( "%s/python2.5" % staging_incdir ): return "2.5"
-	if os.path.exists( "%s/python2.4" % staging_incdir ): return "2.4"
-	if os.path.exists( "%s/python2.3" % staging_incdir ): return "2.3"
-	raise "No Python in STAGING_INCDIR. Forgot to build python/python-native?"
-
-# Use a shell variable here since otherwise gettext trys to expand this at 
-# parse time when it manipulates EXTRA_OECONF which fails
-export PYTHONVER = "${@rpm_python_version(d)}"
