@@ -1,8 +1,8 @@
 DESCRIPTION = "The RPM Package Manager."
 HOMEPAGE = "http://rpm.org/"
 LICENSE = "LGPL GPL"
-DEPENDS = "zlib beecrypt file popt python"
-PR = "r12"
+DEPENDS = "zlib beecrypt file popt python sed-native"
+PR = "r13"
 
 SRC_URI = "http://www.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.3.tar.gz \
            file://external-tools.patch;patch=1 \
@@ -64,14 +64,12 @@ do_configure () {
 	cd ${S}/db/dist
 	. ./RELEASE
 	# Edit version information we couldn't pre-compute.
-	(echo "1,\$s/__EDIT_DB_VERSION_MAJOR__/$DB_VERSION_MAJOR/g" &&
-	 echo "1,\$s/__EDIT_DB_VERSION_MINOR__/$DB_VERSION_MINOR/g" &&
-	 echo "1,\$s/__EDIT_DB_VERSION_PATCH__/$DB_VERSION_PATCH/g" &&
-	 echo "1,\$s/__EDIT_DB_VERSION_STRING__/$DB_VERSION_STRING/g" &&
-	 echo "1,\$s/__EDIT_DB_VERSION_UNIQUE_NAME__/$DB_VERSION_UNIQUE_NAME/g" &&
-	 echo "1,\$s/__EDIT_DB_VERSION__/$DB_VERSION/g" &&
-	 echo "w" &&
-	 echo "q") | ed configure
+	sed -i -e "s/__EDIT_DB_VERSION_MAJOR__/$DB_VERSION_MAJOR/g"  configure
+	sed -i -e "s/__EDIT_DB_VERSION_MINOR__/$DB_VERSION_MINOR/g"  configure
+	sed -i -e "s/__EDIT_DB_VERSION_PATCH__/$DB_VERSION_PATCH/g"  configure
+	sed -i -e "s/__EDIT_DB_VERSION_STRING__/$DB_VERSION_STRING/g"  configure
+	sed -i -e "s/__EDIT_DB_VERSION_UNIQUE_NAME__/$DB_VERSION_UNIQUE_NAME/g"  configure
+	sed -i -e "s/__EDIT_DB_VERSION__/$DB_VERSION/g"  configure
 	cd ${S}/db3
 	${S}/db3/configure \
 		    --build=${BUILD_SYS} \
