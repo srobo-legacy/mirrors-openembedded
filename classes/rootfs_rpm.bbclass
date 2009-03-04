@@ -85,15 +85,6 @@ EOF
 		cp -r ${DEPLOY_DIR_RPM}/$arch ${IMAGE_ROOTFS}${DEPLOY_DIR_RPM}/
 	done
 
-
-	#mkdir -p ${IMAGE_ROOTFS}/var/lib/rpm
-	#rpm --root ${IMAGE_ROOTFS} --initdb
-	#rpm --root ${IMAGE_ROOTFS} --dbpath ${IMAGE_ROOTFS}/var/lib/rpm -ihv --nodeps --ignoreos
-	#rpm -ihv --root ${IMAGE_ROOTFS} ${PACKAGE_INSTALL}
-
-	#package_update_index_rpm
-	#package_generate_ipkg_conf
-
 	# Uclibc builds don't provide this stuff...
 	if [ x${TARGET_OS} = "xlinux" ] || [ x${TARGET_OS} = "xlinux-gnueabi" ] ; then 
 		if [ ! -z "${LINGUAS_INSTALL}" ]; then
@@ -123,9 +114,6 @@ EOF
 	export OFFLINE_ROOT=${IMAGE_ROOTFS}
 	export IPKG_OFFLINE_ROOT=${IMAGE_ROOTFS}
 	export OPKG_OFFLINE_ROOT=${IMAGE_ROOTFS}
-
-	#mkdir -p ${IMAGE_ROOTFS}/etc/opkg/
-	#grep "^arch" ${IPKGCONF_TARGET} >${IMAGE_ROOTFS}/etc/opkg/arch.conf
 
 	${ROOTFS_POSTINSTALL_COMMAND}
 
