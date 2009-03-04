@@ -2,7 +2,7 @@
 # Creates a root filesystem out of rpm packages
 #
 
-ROOTFS_PKGMANAGE = "rpm yum" 
+ROOTFS_PKGMANAGE = "rpm yum"
 
 ROOTFS_PKGMANAGE_BOOTSTRAP  = "run-postinsts"
 
@@ -43,7 +43,7 @@ rpm_insert_feeds_uris () {
 
 fakeroot rootfs_rpm_do_rootfs () {
 	set -x
-	
+
 	${RPM_PREPROCESS_COMMANDS}
 
 	mkdir -p ${IMAGE_ROOTFS}/etc/rpm/
@@ -78,9 +78,9 @@ EOF
 		echo "gpgcheck=0" >> ${YUMCONF}
 		echo "" >> ${YUMCONF}
 		#priority=$(expr $priority + 5)
-		
+
 		# Copy the packages into the target image
-		# Ugly ugly ugly but rpm is braindead and can't see outside the chroot 
+		# Ugly ugly ugly but rpm is braindead and can't see outside the chroot
 		# when installing :(
 		cp -r ${DEPLOY_DIR_RPM}/$arch ${IMAGE_ROOTFS}${DEPLOY_DIR_RPM}/
 	done
@@ -88,7 +88,7 @@ EOF
 
 	#mkdir -p ${IMAGE_ROOTFS}/var/lib/rpm
 	#rpm --root ${IMAGE_ROOTFS} --initdb
-	#rpm --root ${IMAGE_ROOTFS} --dbpath ${IMAGE_ROOTFS}/var/lib/rpm -ihv --nodeps --ignoreos  
+	#rpm --root ${IMAGE_ROOTFS} --dbpath ${IMAGE_ROOTFS}/var/lib/rpm -ihv --nodeps --ignoreos
 	#rpm -ihv --root ${IMAGE_ROOTFS} ${PACKAGE_INSTALL}
 
 	#package_update_index_rpm
@@ -176,7 +176,7 @@ EOF
 	# remove no longer used yum.conf
 	rm -f ${IMAGE_ROOTFS}/etc/yum.conf
 
-	log_check rootfs 	
+	log_check rootfs
 }
 
 rootfs_rpm_log_check() {
@@ -185,44 +185,26 @@ rootfs_rpm_log_check() {
 
 	lf_txt="`cat $lf_path`"
 	for keyword_die in "Cannot find package" "exit 1" ERR Fail
-	do				
+	do
 		if (echo "$lf_txt" | grep -v log_check | grep "$keyword_die") >/dev/null 2>&1
 		then
 			echo "log_check: There were error messages in the logfile"
 			echo -e "log_check: Matched keyword: [$keyword_die]\n"
 			echo "$lf_txt" | grep -v log_check | grep -C 5 -i "$keyword_die"
 			echo ""
-			do_exit=1				
+			do_exit=1
 		fi
 	done
-	test "$do_exit" = 1 && exit 1
+	test "$do_exit" = 1 && exit
 	true
 }
 
 remove_packaging_data_files() {
-	rm -rf ${IMAGE_ROOTFS}/usr/lib/opkg/
+# empty for now
 }
 
 install_all_locales() {
-
-    PACKAGES_TO_INSTALL=""
-
-	INSTALLED_PACKAGES=`grep ^Package: ${IMAGE_ROOTFS}${libdir}/opkg/status |sed "s/^Package: //"|egrep -v -- "(-locale-|-dev$|-doc$|^kernel|^glibc|^ttf|^task|^perl|^python)"`
-
-    for pkg in $INSTALLED_PACKAGES
-    do
-        for lang in ${IMAGE_LOCALES}
-        do
-            if [ `opkg-cl ${IPKG_ARGS} info $pkg-locale-$lang | wc -l` -gt 2 ]
-            then
-                    PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $pkg-locale-$lang"
-            fi
-        done
-    done
-    if [ "$PACKAGES_TO_INSTALL" != "" ]
-    then
-        opkg-cl ${IPKG_ARGS} install $PACKAGES_TO_INSTALL
-    fi
+# empty for now
 }
 
 python () {

@@ -200,7 +200,7 @@ python do_package_rpm () {
 		pkgoutdir = os.path.join(outdir, bb.data.getVar('PACKAGE_ARCH', localdata, 1))
 		bb.mkdirhier(pkgoutdir)
 		bb.data.setVar('OUTSPECFILE', os.path.join(workdir, "%s.spec" % pkg), localdata)
-		# Save the value of RPMBUILD expanded into the new dictonary so any 
+		# Save the value of RPMBUILD expanded into the new dictonary so any
 		# changes in the compoents that make up workdir don't break packaging
 		bb.data.setVar('RPMBUILD', bb.data.getVar("RPMBUILD", d, True), localdata)
 		bb.data.setVar('RPMBUILDPATH', bb.data.getVar("RPMBUILDPATH", d, True), localdata)
