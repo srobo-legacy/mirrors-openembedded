@@ -52,7 +52,7 @@ python write_specfile() {
 			pass
 	if not files and bb.data.getVar('ALLOW_EMPTY', d) != "1":
 		from bb import note
-		note("Not creating empty archive for %s" % (bb.data.expand('${PKG}-${PV}-${PR}${DISTRO_PR}', d, True))
+		note("Not creating empty archive for %s" % (bb.data.expand('${PKG}-${PV}-${PR}${DISTRO_PR}', d, True)))
 		return
 
 	# output .spec using this metadata store
@@ -107,7 +107,7 @@ python write_specfile() {
 	write_dep_field('RDEPENDS', 'Requires')
 	write_dep_field('RRECOMMENDS', 'Recommends')
 
-        fd.write("Release\t: %s\n" % bb.data.expand('${PR}${DISTRO_PR}', d, True)
+	fd.write("Release\t: %s\n" % bb.data.expand('${PR}${DISTRO_PR}', d, True))
 	fd.write("Summary\t: .\n")
 
 	for var in out_vartranslate.keys():
