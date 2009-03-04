@@ -106,6 +106,7 @@ python write_specfile() {
 
 	write_dep_field('RDEPENDS', 'Requires')
 	write_dep_field('RRECOMMENDS', 'Recommends')
+	write_dep_field('RPROVIDES', 'Provides')
 
 	fd.write("Release\t: %s\n" % bb.data.expand('${PR}${DISTRO_PR}', d, True))
 	fd.write("Summary\t: .\n")
