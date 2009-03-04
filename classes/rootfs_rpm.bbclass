@@ -34,7 +34,7 @@ rpm_insert_feeds_uris () {
 
 		FEED_FILE=${IMAGE_ROOTFS}/etc/yum/repos.d/$feed_name
 
-		echo "[poky-feed-$feed_name]" >> $FEED_FILE
+		echo "[${DISTRO}-feed-$feed_name]" >> $FEED_FILE
 		echo "name = $feed_name" >> $FEED_FILE
 		echo "baseurl = $feed_uri" >> $FEED_FILE
 		echo "gpgcheck = 0" >> $FEED_FILE
@@ -72,8 +72,8 @@ EOF
 		fi
 		createrepo ${DEPLOY_DIR_RPM}/$arch
 
-		echo "[poky-feed-$arch]" >> ${YUMCONF}
-		echo "name = Poky RPM $arch Feed" >> ${YUMCONF}
+		echo "[${DISTRO}-feed-$arch]" >> ${YUMCONF}
+		echo "name = ${DISTRO} RPM $arch Feed" >> ${YUMCONF}
 		echo "baseurl=file://${DEPLOY_DIR_RPM}/$arch" >> ${YUMCONF}
 		echo "gpgcheck=0" >> ${YUMCONF}
 		echo "" >> ${YUMCONF}
