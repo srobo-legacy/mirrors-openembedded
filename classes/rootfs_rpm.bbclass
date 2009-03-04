@@ -201,10 +201,12 @@ rootfs_rpm_log_check() {
 
 remove_packaging_data_files() {
 # empty for now
+	:
 }
 
 install_all_locales() {
 # empty for now
+	:
 }
 
 python () {
