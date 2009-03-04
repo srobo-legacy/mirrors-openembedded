@@ -1,5 +1,5 @@
 HOMEPAGE = "http://linux.duke.edu/projects/yum/"
-PR = "r4"
+PR = "r5"
 
 SRC_URI = "http://linux.duke.edu/projects/yum/download/3.2/yum-${PV}.tar.gz \
            file://paths.patch;patch=1 \
