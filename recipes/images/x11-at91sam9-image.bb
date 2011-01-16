@@ -39,12 +39,12 @@ IMAGE_INSTALL += "\
 	fbv \
 	dosfstools \
 	mtd-utils \
-	gpe-mini-browser \
+#	gpe-mini-browser \
 	tslib-conf \
 	tslib-calibrate \
 	tslib-tests \
 	libstdc++ \
-	${IMAGE_EXTRA_INSTALL} \
+#	${IMAGE_EXTRA_INSTALL} \
 #	nbench-byte \
 #	pointercal \
 	"
