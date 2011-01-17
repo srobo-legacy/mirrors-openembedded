@@ -1,0 +1,25 @@
+From 3ca90839e9a3c5406fe17f3f722fb9fec90af22b Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Mon, 17 Jan 2011 01:02:04 +0100
+Subject: [PATCH 14/14] Fix yet another cut+paste error
+
+---
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 93ec72d..3dc3b65 100644
+--- a/Makefile
++++ b/Makefile
+@@ -201,7 +201,7 @@ IMAGE=$(BOOT_NAME).bin
+ endif
+ 
+ ifeq ($(SYMLINK),)
+-SYMLINK=at91bootstrap.bin+ifeq ($(CONFIG_DUAL_BOOT),y)
++SYMLINK=at91bootstrap.bin
+ endif
+ 
+ EXTRA_INSTALL=
+-- 
+1.7.1
+

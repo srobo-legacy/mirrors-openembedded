@@ -1,0 +1,31 @@
+From 8a728b5f60013fcf59157e6cd5456730d0c8862e Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Mon, 17 Jan 2011 00:43:45 +0100
+Subject: [PATCH 13/13] Update .gitignore
+
+---
+ .gitignore |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index e2da57f..2d4aa5a 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,6 +1,7 @@
+ .config
+ log
+ log/*
++config/*
+ config/at91bootstrap-config/
+ config/conf
+ config/conf.o
+@@ -19,4 +20,6 @@ binaries
+ *~
+ *.orig
+ ..make.deps.tmp
++*.o
++
+ 
+-- 
+1.7.1
+

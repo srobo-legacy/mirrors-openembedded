@@ -1,0 +1,51 @@
+From e9bee36197cf85d2956648197d39023a64636d81 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Mon, 17 Jan 2011 00:42:15 +0100
+Subject: [PATCH 11/13] Fix cut-paste errors
+
+---
+ board/at91sam9g45ek/at91sam9g45ek.c     |    8 +-------
+ board/at91sam9g45ekes/at91sam9g45ekes.c |    8 +-------
+ 2 files changed, 2 insertions(+), 14 deletions(-)
+
+diff --git a/board/at91sam9g45ek/at91sam9g45ek.c b/board/at91sam9g45ek/at91sam9g45ek.c
+index 0dd7d27..f4a782d 100644
+--- a/board/at91sam9g45ek/at91sam9g45ek.c
++++ b/board/at91sam9g45ek/at91sam9g45ek.c
+@@ -73,13 +73,7 @@ int alternate_boot_button(void)
+ 	/* Configure PIO B controller */
+ 	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
+ 	pio_setup(button_pio);
+-		dbgu_print("[Alternate]\n\r");		
+-		return 1;
+-	} else {
+-		dbgu_print("[Normal]\n\r");		
+-		return 0;
+-	}
+-}
++
+ 	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
+ 	dbgu_print("Checking for Alternate boot: ...\n\r");
+ 	if ( !pio_get_value(LEFT_BUTTON) ) {
+diff --git a/board/at91sam9g45ekes/at91sam9g45ekes.c b/board/at91sam9g45ekes/at91sam9g45ekes.c
+index ddb063b..8475bcc 100644
+--- a/board/at91sam9g45ekes/at91sam9g45ekes.c
++++ b/board/at91sam9g45ekes/at91sam9g45ekes.c
+@@ -75,13 +75,7 @@ int alternate_boot_button(void)
+ 	/* Configure PIO B controller */
+ 	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
+ 	pio_setup(button_pio);
+-		dbgu_print("[Alternate]\n\r");		
+-		return 1;
+-	} else {
+-		dbgu_print("[Normal]\n\r");		
+-		return 0;
+-	}
+-}
++
+ 	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
+ 	dbgu_print("Checking for Alternate boot: ...\n\r");
+ 	if ( !pio_get_value(LEFT_BUTTON) ) {
+-- 
+1.7.1
+
