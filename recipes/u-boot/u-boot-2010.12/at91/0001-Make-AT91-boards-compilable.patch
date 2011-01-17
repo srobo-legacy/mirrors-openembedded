@@ -1,0 +1,291 @@
+From 641801534e3f55deff5ba90e3aa4095ffe932f42 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf@narya.(none)>
+Date: Sat, 15 Jan 2011 22:12:31 +0100
+Subject: [PATCH 1/3] Make AT91 boards compilable.
+
+Many AT91 boards have not been updated.
+Add/delete defines blocking compilation
+
+AT91_BASE_SPI1
+CONFIG_AT91FAMILY
+CONFIG_SYS_SDRAM_BASE
+CONFIG_SYS_INIT_SP_ADDR
+CONFIG_AT91_LEGACY
+CONFIG_CMD_NFS (undef)
+Add "reset_timer_masked" and "get_timer_masked"
+---
+ Makefile                                  |    2 +-
+ arch/arm/cpu/arm926ejs/at91/timer.c       |   12 +++++++++++-
+ arch/arm/include/asm/arch-at91/hardware.h |    2 ++
+ include/configs/at91cap9adk.h             |    5 +++++
+ include/configs/at91rm9200dk.h            |    9 +++++++++
+ include/configs/at91rm9200ek.h            |    8 ++++++++
+ include/configs/at91sam9260ek.h           |    5 +++++
+ include/configs/at91sam9261ek.h           |    5 +++++
+ include/configs/at91sam9263ek.h           |    7 +++++++
+ include/configs/at91sam9m10g45ek.h        |    5 +++++
+ include/configs/at91sam9rlek.h            |    6 ++++++
+ 11 files changed, 64 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 9055028..19f2307 100644
+--- a/Makefile
++++ b/Makefile
+@@ -527,7 +527,7 @@ unconfig:
+ 
+ sinclude .boards.depend
+ .boards.depend:	boards.cfg
+-	awk '(NF && $$1 !~ /^#/) { print $$1 ": " $$1 "_config; $$(MAKE)" }' $< > $@
++	@awk '(NF && $$1 !~ /^#/) { print $$1 ": " $$1 "_config; $$(MAKE)" }' $< > $@
+ 
+ #
+ # Functions to generate common board directory names
+diff --git a/arch/arm/cpu/arm926ejs/at91/timer.c b/arch/arm/cpu/arm926ejs/at91/timer.c
+index 82b8d7e..6773186 100644
+--- a/arch/arm/cpu/arm926ejs/at91/timer.c
++++ b/arch/arm/cpu/arm926ejs/at91/timer.c
+@@ -127,9 +127,19 @@ void reset_timer(void)
+ 	gd->timer_reset_value = get_ticks();
+ }
+ 
++void reset_timer_masked(void)
++{
++	reset_timer();
++}
++
++ulong get_timer_masked(void)
++{
++	return tick_to_time(get_ticks() - gd->timer_reset_value);
++}
++
+ ulong get_timer(ulong base)
+ {
+-	return tick_to_time(get_ticks() - gd->timer_reset_value) - base;
++	return get_timer_masked() - base;
+ }
+ 
+ /*
+diff --git a/arch/arm/include/asm/arch-at91/hardware.h b/arch/arm/include/asm/arch-at91/hardware.h
+index 6b44d61..d701dc0 100644
+--- a/arch/arm/include/asm/arch-at91/hardware.h
++++ b/arch/arm/include/asm/arch-at91/hardware.h
+@@ -34,6 +34,7 @@
+ #elif defined(CONFIG_AT91SAM9263)
+ #include <asm/arch/at91sam9263.h>
+ #define AT91_BASE_SPI	AT91SAM9263_BASE_SPI0
++#define AT91_BASE_SPI1	AT91SAM9263_BASE_SPI1
+ #define AT91_ID_UHP	AT91SAM9263_ID_UHP
+ #define AT91_PMC_UHP	AT91SAM926x_PMC_UHP
+ #elif defined(CONFIG_AT91SAM9RL)
+@@ -44,6 +45,7 @@
+ #include <asm/arch/at91sam9g45.h>
+ #define AT91_BASE_EMAC  AT91SAM9G45_BASE_EMAC
+ #define AT91_BASE_SPI   AT91SAM9G45_BASE_SPI0
++#define AT91_BASE_SPI1  AT91SAM9G45_BASE_SPI1
+ #define AT91_ID_UHP     AT91SAM9G45_ID_UHPHS
+ #define AT91_PMC_UHP    AT91SAM926x_PMC_UHP
+ #elif defined(CONFIG_AT91CAP9)
+diff --git a/include/configs/at91cap9adk.h b/include/configs/at91cap9adk.h
+index 49c923f..501a8ef 100644
+--- a/include/configs/at91cap9adk.h
++++ b/include/configs/at91cap9adk.h
+@@ -28,6 +28,7 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
+ 
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	12000000	/* 12 MHz crystal */
+@@ -209,6 +210,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91rm9200dk.h b/include/configs/at91rm9200dk.h
+index 15de310..7ae5083 100644
+--- a/include/configs/at91rm9200dk.h
++++ b/include/configs/at91rm9200dk.h
+@@ -26,6 +26,11 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
++
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
+ 
+ /* ARM asynchronous clock */
+ #define AT91C_MAIN_CLOCK	179712000	/* from 18.432 MHz crystal (18432000 / 4 * 39) */
+@@ -193,6 +198,10 @@
+ #define CONFIG_SYS_HZ_CLOCK AT91C_MASTER_CLOCK/2	/* AT91C_TC0_CMR is implicitly set to */
+ 						/* AT91C_TC_TIMER_DIV1_CLOCK */
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91rm9200ek.h b/include/configs/at91rm9200ek.h
+index 810023a..29b5116 100644
+--- a/include/configs/at91rm9200ek.h
++++ b/include/configs/at91rm9200ek.h
+@@ -30,6 +30,9 @@
+ #ifndef __AT91RM9200EK_CONFIG_H__
+ #define __AT91RM9200EK_CONFIG_H__
+ 
++#define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
++
+ #include <asm/sizes.h>
+ 
+ /*
+@@ -220,6 +223,11 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + SZ_128K, \
+ 					     SZ_4K)
++
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ /* size in bytes reserved for initial data */
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR		(CONFIG_SYS_SDRAM_BASE + SZ_4K \
+diff --git a/include/configs/at91sam9260ek.h b/include/configs/at91sam9260ek.h
+index 5e7dee5..1f04b15 100644
+--- a/include/configs/at91sam9260ek.h
++++ b/include/configs/at91sam9260ek.h
+@@ -28,6 +28,7 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
+ 
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	18432000	/* 18.432 MHz crystal */
+@@ -213,6 +214,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91sam9261ek.h b/include/configs/at91sam9261ek.h
+index 401478b..d5c8d0d 100644
+--- a/include/configs/at91sam9261ek.h
++++ b/include/configs/at91sam9261ek.h
+@@ -28,6 +28,7 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
+ 
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	18432000	/* 18.432 MHz crystal */
+@@ -231,6 +232,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91sam9263ek.h b/include/configs/at91sam9263ek.h
+index f6cb406..3db8bd0 100644
+--- a/include/configs/at91sam9263ek.h
++++ b/include/configs/at91sam9263ek.h
+@@ -27,6 +27,9 @@
+ #ifndef __CONFIG_H
+ #define __CONFIG_H
+ 
++#define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
++
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	16367660	/* 16.367 MHz crystal */
+ #define CONFIG_SYS_HZ		1000
+@@ -341,6 +344,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91sam9m10g45ek.h b/include/configs/at91sam9m10g45ek.h
+index de74dcf..5fcc0f4 100644
+--- a/include/configs/at91sam9m10g45ek.h
++++ b/include/configs/at91sam9m10g45ek.h
+@@ -28,6 +28,7 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
+ 
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	12000000	/* from 12 MHz crystal */
+@@ -217,6 +218,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+diff --git a/include/configs/at91sam9rlek.h b/include/configs/at91sam9rlek.h
+index 8dbd082..08ef270 100644
+--- a/include/configs/at91sam9rlek.h
++++ b/include/configs/at91sam9rlek.h
+@@ -28,6 +28,7 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_AT91_LEGACY
++#define	CONFIG_AT91FAMILY
+ 
+ /* ARM asynchronous clock */
+ #define CONFIG_SYS_AT91_MAIN_CLOCK	12000000	/* 12 MHz crystal */
+@@ -85,6 +86,7 @@
+ #undef CONFIG_CMD_IMLS
+ #undef CONFIG_CMD_LOADS
+ #undef CONFIG_CMD_NET
++#undef CONFIG_CMD_NFS
+ #undef CONFIG_CMD_SOURCE
+ #undef CONFIG_CMD_USB
+ 
+@@ -176,6 +178,10 @@
+  */
+ #define CONFIG_SYS_MALLOC_LEN		ROUND(3 * CONFIG_ENV_SIZE + 128*1024, 0x1000)
+ 
++#define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM
++#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
++				GENERATED_GBL_DATA_SIZE)
++
+ #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
+ 
+ #ifdef CONFIG_USE_IRQ
+-- 
+1.7.1
+
