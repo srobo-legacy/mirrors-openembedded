@@ -7,11 +7,11 @@ SOC_FAMILY = "at91"
 PREFERRED_PROVIDER_virtual/kernel = "linux"
 PREFERRED_VERSION_linux = "2.6.30"
 
-PREFERRED_PROVIDER_at91bootstrap = "at91bootstrap_2.13"
-PREFERRED_VERSION_at91bootstrap = "2.13"
+PREFERRED_PROVIDER_at91bootstrap = "at91bootstrap_3.0"
+PREFERRED_VERSION_at91bootstrap = "3.0"
 
-PREFERRED_PROVIDER_u-boot = "u-boot_2009.11"
-PREFERRED_VERSION_u-boot = "2009.11"
+PREFERRED_PROVIDER_u-boot = "u-boot_2010.12"
+PREFERRED_VERSION_u-boot = "2010.12"
 
 KERNEL_IMAGETYPE = "uImage"
 
