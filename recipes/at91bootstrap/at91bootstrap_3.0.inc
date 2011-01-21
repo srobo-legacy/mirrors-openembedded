@@ -12,18 +12,16 @@ do_compile () {
 	unset CPPFLAGS
 
 	rm -Rf ${S}/binaries
-	if ! [ "x${AT91BOOTSTRAP_BOARD}" == "x" ] ; then
-		for board in ${AT91BOOTSTRAP_BOARD} ; do
-			cp `find ./board/ -name ${board}_defconfig` .config
+	for board in ${AT91BOOTSTRAP_BOARD} ; do
+		oe_runmake mrproper
+		filename=`find board -name ${board}_defconfig`
+		if ! [ "x$filename" == "x" ] ; then 
+			cp $filename .config
 			oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}"
 			oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}" boot
 			oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}" install
-		done
-	else
-		cp ${S}/../defconfig ${S}/.config
-		oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}"
-		oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}" boot
-		oe_runmake AT91_CUSTOM_FLAGS="${AT91BOOTSTRAP_FLAGS}" install
-	fi
-
+		else
+			echo "${board} could not be built"
+		fi
+	done
 }
