@@ -1,0 +1,25 @@
+From a8acd71af5be50991b2a8fc6bd2b12c11ccd0a55 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sun, 23 Jan 2011 20:22:50 +0100
+Subject: [PATCH 12/16] Update .gitignore
+
+---
+ .gitignore |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index b08c5d3..f3286b1 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,4 +11,8 @@ config/conf.o
+ *.o
+ patches/*
+ patches
++binaries
++install
++.config.*
++.auto.deps
+ 
+-- 
+1.7.1
+

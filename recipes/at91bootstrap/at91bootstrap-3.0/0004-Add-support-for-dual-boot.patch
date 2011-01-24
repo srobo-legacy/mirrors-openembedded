@@ -1,7 +1,7 @@
-From d57303460ed652a4c19b949aa595a6846872e899 Mon Sep 17 00:00:00 2001
+From 102651cd96baa14c35febb1ea1ee66a2ff7e5f0d Mon Sep 17 00:00:00 2001
 From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
-Date: Sun, 16 Jan 2011 21:46:51 +0100
-Subject: [PATCH 04/13] Add support for dual boot
+Date: Sun, 23 Jan 2011 19:34:13 +0100
+Subject: [PATCH 04/16] Add support for dual boot
 
 ---
  Config.in          |   32 +++++++++++++++++++++++++++++++-
@@ -9,9 +9,9 @@ Subject: [PATCH 04/13] Add support for dual boot
  board/Config.in    |    4 ++++
  driver/MEDSdcard.c |   10 +++++++++-
  include/gpio.h     |    4 ++++
- main.c             |   42 ++++++++++++++++++++++--------------------
+ main.c             |   46 ++++++++++++++++++++++++++--------------------
  toplevel_cpp.mk    |    9 ++++++++-
- 7 files changed, 93 insertions(+), 26 deletions(-)
+ 7 files changed, 97 insertions(+), 26 deletions(-)
 
 diff --git a/Config.in b/Config.in
 index 47da4e6..8c68e41 100644
@@ -200,21 +200,39 @@ index 7c7e57b..fff9539 100644
 +
  #endif                          /* GPIO_H_ */
 diff --git a/main.c b/main.c
-index c7dc662..78dac44 100644
+index c7dc662..9ca56ac 100644
 --- a/main.c
 +++ b/main.c
-@@ -59,6 +59,10 @@ void LoadWince();
+@@ -37,6 +37,7 @@
+ #include "dataflash.h"
+ #include "nandflash.h"
+ #include "flash.h"
++#include "gpio.h"
+ #ifdef CONFIG_USER_HW_INIT
+ void user_hw_init(void);
+ #endif
+@@ -51,6 +52,9 @@ void LoadLinux();
+ 
+ void LoadWince();
+ 
++unsigned int	img_address	= IMG_ADDRESS;
++unsigned int	img_size	= IMG_SIZE;
++
+ /*------------------------------------------------------------------------------*/
+ /* Function Name       : main							*/
+ /* Object              : Main function						*/
+@@ -59,6 +63,10 @@ void LoadWince();
  /*------------------------------------------------------------------------------*/
  int main(void)
  {
-+unsigned int	img_address	= IMG_ADDRESS;
-+unsigned int	img_size	= IMG_SIZE;
-+unsigned int	jump_addr	= JUMP_ADDR;
++
++
++// unsigned int	jump_addr	= JUMP_ADDR;
 +
      /*
       * ================== 1st step: Hardware Initialization ================= 
       */
-@@ -79,46 +83,44 @@ int main(void)
+@@ -79,46 +87,44 @@ int main(void)
      /*
       * Load from Dataflash in RAM 
       */
@@ -222,9 +240,9 @@ index c7dc662..78dac44 100644
 +
 +#if defined(CONFIG_DUAL_BOOT)
 +	if(alternate_boot_button()) {
-+		dbg_print_cr(">Alternate image");
++		dbgu_print(">Alternate image\r\n");
 +		img_address	= ALT_IMG_ADDRESS;
-+		img_address	= ALT_IMG_SIZE;
++		img_size	= ALT_IMG_SIZE;
 +	} else {
 +#else
 +	{
@@ -240,7 +258,7 @@ index c7dc662..78dac44 100644
 -#endif
  
 +#if defined(CONFIG_DATAFLASH) || defined(CONFIG_DATAFLASH_CARD)
-+    load_df(AT91C_SPI_PCS_DATAFLASH, img_address, img_address, JUMP_ADDR);
++    load_df(AT91C_SPI_PCS_DATAFLASH, img_address, img_size, JUMP_ADDR);
 +#endif
      /*
       * Load from Nandflash in RAM 
@@ -253,17 +271,17 @@ index c7dc662..78dac44 100644
 -#else
 -    read_nandflash((unsigned char *)JUMP_ADDR, (unsigned long)IMG_ADDRESS,
 -                   (int)IMG_SIZE);
-+    read_nandflash((unsigned char *)JUMP_ADDR, (unsigned long)img_address,
-+                   (int)img_address);
- #endif
 -#endif
++    read_nandflash((unsigned char *)JUMP_ADDR, (unsigned long)img_address,
++                   (int)img_size);
+ #endif
 -
      /*
       * Load from Norflash in RAM 
       */
  #ifdef CONFIG_FLASH
 -    load_norflash(IMG_ADDRESS, IMG_SIZE, JUMP_ADDR);
-+    load_norflash(img_address, img_address, JUMP_ADDR);
++    load_norflash(img_address, img_size, JUMP_ADDR);
  #endif
 -
  #if defined(CONFIG_SDCARD)

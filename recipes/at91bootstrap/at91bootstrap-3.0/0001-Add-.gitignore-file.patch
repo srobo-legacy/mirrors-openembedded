@@ -1,0 +1,33 @@
+From b783175aa3dd285f11ec1c760a1d96e504188073 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sun, 23 Jan 2011 19:15:00 +0100
+Subject: [PATCH 01/16] Add .gitignore file
+
+---
+ .gitignore |   14 ++++++++++++++
+ 1 files changed, 14 insertions(+), 0 deletions(-)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..b08c5d3
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,14 @@
++.config
++log
++log/*
++config/*
++config/at91bootstrap-config/
++config/conf
++config/conf.o
++*~
++*.orig
++..make.deps.tmp
++*.o
++patches/*
++patches
++
+-- 
+1.7.1
+

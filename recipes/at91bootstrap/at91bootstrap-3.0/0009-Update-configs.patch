@@ -1,73 +1,66 @@
-From 3ac8fe9b125ce50e01dfcd749ead1fc5364d574d Mon Sep 17 00:00:00 2001
+From 0f9b0b7586d1e66998fead980dd8d54a90f40a5c Mon Sep 17 00:00:00 2001
 From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
-Date: Sun, 16 Jan 2011 21:48:43 +0100
-Subject: [PATCH 05/13] Add updated configs
+Date: Sun, 23 Jan 2011 20:05:45 +0100
+Subject: [PATCH 09/16] Update configs
 
 ---
- board/afeb9260/afeb9260_defconfig                  |   22 ++++++--
- board/at91cap9adk/at91cap9adk_defconfig            |   25 +++++++--
- board/at91cap9adk/at91cap9df_defconfig             |   25 +++++++--
- board/at91cap9adk/at91cap9f_defconfig              |   25 +++++++--
- board/at91cap9stk/at91cap9stk_defconfig            |   25 +++++++--
- board/at91cap9stk/at91cap9stkdf_defconfig          |   25 +++++++--
- board/at91cap9stk/at91cap9stkf_defconfig           |   25 +++++++--
- board/at91sam9260ek/at91sam9260df_defconfig        |   13 ++++-
- board/at91sam9260ek/at91sam9260dfc_defconfig       |   21 ++++++--
- board/at91sam9260ek/at91sam9260ek_defconfig        |   11 +++-
- board/at91sam9260ek/at91sam9260nf_defconfig        |   13 ++++-
- board/at91sam9261ek/at91sam9261df_defconfig        |   13 ++++-
- board/at91sam9261ek/at91sam9261dfc_defconfig       |   24 +++++++--
- board/at91sam9261ek/at91sam9261ek_defconfig        |   11 +++-
- board/at91sam9261ek/at91sam9261nf_defconfig        |   13 ++++-
- board/at91sam9263ek/at91sam9263df_defconfig        |   15 ++++--
- board/at91sam9263ek/at91sam9263dfc_defconfig       |   26 +++++++--
- board/at91sam9263ek/at91sam9263ek_defconfig        |   13 ++++-
- board/at91sam9263ek/at91sam9263nf_defconfig        |   15 ++++--
- board/at91sam9g10ek/at91sam9g10df_defconfig        |   15 ++++--
- board/at91sam9g10ek/at91sam9g10ek_defconfig        |   13 ++++-
- board/at91sam9g10ek/at91sam9g10nf_defconfig        |   15 ++++--
- board/at91sam9g10ek/at91sam9g10sd_defconfig        |   12 +++--
- board/at91sam9g20ek/at91sam9g20df_defconfig        |   15 ++++--
- board/at91sam9g20ek/at91sam9g20dfc_defconfig       |   30 ++++++++---
- board/at91sam9g20ek/at91sam9g20ek_defconfig        |   13 ++++-
- board/at91sam9g20ek/at91sam9g20nf_defconfig        |   15 ++++--
- board/at91sam9g20ek/at91sam9g20sd_defconfig        |   10 ++--
- board/at91sam9g45ek/at91sam9g45df_defconfig        |   17 +++++--
- board/at91sam9g45ek/at91sam9g45ek.c                |   30 +++++++++++
- board/at91sam9g45ek/at91sam9g45ek.h                |   10 ++++
- board/at91sam9g45ek/at91sam9g45ek_defconfig        |   15 ++++-
- board/at91sam9g45ek/at91sam9g45nf_defconfig        |   17 +++++--
- board/at91sam9g45ek/at91sam9g45sd_defconfig        |   12 +++--
- board/at91sam9g45ekes/at91sam9g45dfes_defconfig    |   17 +++++--
- board/at91sam9g45ekes/at91sam9g45ekes.c            |   30 +++++++++++
- board/at91sam9g45ekes/at91sam9g45ekes.h            |    9 +++
- board/at91sam9g45ekes/at91sam9g45ekes_defconfig    |   15 ++++-
- board/at91sam9g45ekes/at91sam9g45nfes_defconfig    |   17 +++++--
- .../at91sam9g45sdes_android_defconfig              |    8 ++-
- board/at91sam9g45ekes/at91sam9g45sdes_defconfig    |   12 +++--
- board/at91sam9m10ek/at91sam9m10df_defconfig        |   17 +++++--
- board/at91sam9m10ek/at91sam9m10ek.c                |   29 ++++++++++
- board/at91sam9m10ek/at91sam9m10ek.h                |   10 ++++
- board/at91sam9m10ek/at91sam9m10ek_defconfig        |   15 ++++-
- board/at91sam9m10ek/at91sam9m10nf_defconfig        |   17 +++++--
- .../at91sam9m10ek/at91sam9m10sd_android_defconfig  |    8 ++-
- board/at91sam9m10ek/at91sam9m10sd_defconfig        |   12 +++--
- board/at91sam9m10ek/at91sam9m10sdu_defconfig       |    2 +-
- board/at91sam9m10ekes/at91sam9m10dfes_defconfig    |   17 +++++--
- board/at91sam9m10ekes/at91sam9m10ekes.c            |   56 ++++++++++++++++++++
- board/at91sam9m10ekes/at91sam9m10ekes.h            |   10 ++++
- board/at91sam9m10ekes/at91sam9m10ekes_defconfig    |   15 ++++-
- board/at91sam9m10ekes/at91sam9m10nfes_defconfig    |   17 +++++--
- board/at91sam9m10ekes/at91sam9m10sdes_defconfig    |   12 +++--
- board/at91sam9rlek/at91sam9rldf_defconfig          |   15 ++++--
- board/at91sam9rlek/at91sam9rlek_defconfig          |   13 ++++-
- board/at91sam9rlek/at91sam9rlnf_defconfig          |   15 ++++--
- board/at91sam9rlek/at91sam9rlsd_defconfig          |   10 ++--
- board/at91sam9xeek/at91sam9xedf_defconfig          |   11 +++-
- board/at91sam9xeek/at91sam9xedfc_defconfig         |   28 ++++++++--
- board/at91sam9xeek/at91sam9xeek_defconfig          |    9 +++-
- board/at91sam9xeek/at91sam9xenf_defconfig          |   15 ++++--
- 63 files changed, 861 insertions(+), 199 deletions(-)
+ board/afeb9260/afeb9260_defconfig                  |   22 ++++-
+ board/at91cap9adk/at91cap9adk_defconfig            |   25 ++++-
+ board/at91cap9adk/at91cap9df_defconfig             |   25 ++++-
+ board/at91cap9adk/at91cap9f_defconfig              |   25 ++++-
+ board/at91cap9stk/at91cap9stk_defconfig            |   25 ++++-
+ board/at91cap9stk/at91cap9stkdf_defconfig          |   25 ++++-
+ board/at91cap9stk/at91cap9stkf_defconfig           |   25 ++++-
+ board/at91sam9260ek/at91sam9260df_defconfig        |   13 ++-
+ board/at91sam9260ek/at91sam9260dfc_defconfig       |   21 +++-
+ board/at91sam9260ek/at91sam9260ek_defconfig        |   11 ++-
+ board/at91sam9260ek/at91sam9260nf_defconfig        |   13 ++-
+ board/at91sam9261ek/at91sam9261df_defconfig        |   13 ++-
+ board/at91sam9261ek/at91sam9261dfc_defconfig       |   24 ++++-
+ board/at91sam9261ek/at91sam9261ek_defconfig        |   11 ++-
+ board/at91sam9261ek/at91sam9261nf_defconfig        |   13 ++-
+ board/at91sam9263ek/at91sam9263df_defconfig        |   15 ++-
+ board/at91sam9263ek/at91sam9263dfc_defconfig       |   26 ++++-
+ board/at91sam9263ek/at91sam9263ek_defconfig        |   13 ++-
+ board/at91sam9263ek/at91sam9263nf_defconfig        |   15 ++-
+ board/at91sam9g10ek/at91sam9g10df_defconfig        |   15 ++-
+ board/at91sam9g10ek/at91sam9g10ek_defconfig        |   13 ++-
+ board/at91sam9g10ek/at91sam9g10nf_defconfig        |   15 ++-
+ board/at91sam9g10ek/at91sam9g10sd_defconfig        |   12 ++-
+ board/at91sam9g20ek/at91sam9g20df_defconfig        |   15 ++-
+ board/at91sam9g20ek/at91sam9g20dfc_defconfig       |   30 ++++--
+ board/at91sam9g20ek/at91sam9g20ek_defconfig        |   13 ++-
+ board/at91sam9g20ek/at91sam9g20nf_defconfig        |   15 ++-
+ board/at91sam9g20ek/at91sam9g20sd_defconfig        |   10 +-
+ board/at91sam9g45ek/at91sam9g45df_defconfig        |   17 +++-
+ board/at91sam9g45ek/at91sam9g45ek_defconfig        |   15 ++-
+ board/at91sam9g45ek/at91sam9g45nf_defconfig        |   17 +++-
+ board/at91sam9g45ek/at91sam9g45sd_defconfig        |   12 ++-
+ board/at91sam9g45ekes/at91sam9g45dfes_defconfig    |   17 +++-
+ board/at91sam9g45ekes/at91sam9g45ekes_defconfig    |   15 ++-
+ board/at91sam9g45ekes/at91sam9g45nfes_defconfig    |   17 +++-
+ .../at91sam9g45sdes_android_defconfig              |    8 +-
+ board/at91sam9g45ekes/at91sam9g45sdes_defconfig    |   12 ++-
+ board/at91sam9m10ek/at91sam9m10df_defconfig        |   17 +++-
+ board/at91sam9m10ek/at91sam9m10ek_defconfig        |   15 ++-
+ board/at91sam9m10ek/at91sam9m10nf_defconfig        |   17 +++-
+ .../at91sam9m10ek/at91sam9m10sd_android_defconfig  |    8 +-
+ board/at91sam9m10ek/at91sam9m10sd_defconfig        |   12 ++-
+ board/at91sam9m10ek/at91sam9m10sdu_defconfig       |  107 ++++++++++++++++++++
+ board/at91sam9m10ekes/at91sam9m10dfes_defconfig    |   17 +++-
+ board/at91sam9m10ekes/at91sam9m10ekes_defconfig    |   15 ++-
+ board/at91sam9m10ekes/at91sam9m10nfes_defconfig    |   17 +++-
+ board/at91sam9m10ekes/at91sam9m10sdes_defconfig    |   12 ++-
+ board/at91sam9rlek/at91sam9rldf_defconfig          |   15 ++-
+ board/at91sam9rlek/at91sam9rlek_defconfig          |   13 ++-
+ board/at91sam9rlek/at91sam9rlnf_defconfig          |   15 ++-
+ board/at91sam9rlek/at91sam9rlsd_defconfig          |   10 +-
+ board/at91sam9xeek/at91sam9xedf_defconfig          |   11 ++-
+ board/at91sam9xeek/at91sam9xedfc_defconfig         |   28 ++++-
+ board/at91sam9xeek/at91sam9xeek_defconfig          |    9 ++-
+ board/at91sam9xeek/at91sam9xenf_defconfig          |   15 ++-
+ 55 files changed, 783 insertions(+), 198 deletions(-)
+ create mode 100644 board/at91sam9m10ek/at91sam9m10sdu_defconfig
 
 diff --git a/board/afeb9260/afeb9260_defconfig b/board/afeb9260/afeb9260_defconfig
 index ee84d2f..516b29b 100644
@@ -1892,66 +1885,6 @@ index bcece6f..3a1bafc 100644
  CONFIG_HW_INIT=y
  # CONFIG_USER_HW_INIT is not set
  CONFIG_THUMB=y
-diff --git a/board/at91sam9g45ek/at91sam9g45ek.c b/board/at91sam9g45ek/at91sam9g45ek.c
-index f000927..de9b5d5 100644
---- a/board/at91sam9g45ek/at91sam9g45ek.c
-+++ b/board/at91sam9g45ek/at91sam9g45ek.c
-@@ -225,6 +225,36 @@ void df_recovery(AT91PS_DF pDf)
- 
- }
- #endif
-+
-+
-+/*------------------------------------------------------------------------------*/
-+/* \fn    alternate_boot							*/
-+/* \brief This function returns 1 if LEFT BUTTON is pressed			*/
-+/*        during boot sequence							*/
-+/*------------------------------------------------------------------------------*/
-+int alternate_boot_button(void)
-+{
-+	/* Configure PIOs */
-+	const struct pio_desc button_pio[] = {
-+		{"LEFT", LEFT_BUTTON, 0, PIO_PULLUP, PIO_INPUT},
-+		{(char *) 0, 0, 0, PIO_DEFAULT, PIO_PERIPH_A},
-+	};
-+
-+	/* Configure PIO B controller */
-+	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
-+	pio_setup(button_pio);
-+
-+	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
-+	dbg_print("Checking for Alternate boot: ...\n\r");
-+	if ( !pio_get_value(LEFT_BUTTON) ) {
-+		dbg_print("[Alternate]\n\r");		
-+		return 1;
-+	} else {
-+		dbg_print("[Normal]\n\r");		
-+		return 0;
-+	}
-+}
-+
- /*------------------------------------------------------------------------------*/
- /* \fn    df_hw_init								*/
- /* \brief This function performs DataFlash HW initialization			*/
-diff --git a/board/at91sam9g45ek/at91sam9g45ek.h b/board/at91sam9g45ek/at91sam9g45ek.h
-index d443433..06a8069 100644
---- a/board/at91sam9g45ek/at91sam9g45ek.h
-+++ b/board/at91sam9g45ek/at91sam9g45ek.h
-@@ -122,4 +122,14 @@
- #define BOARD_SD_PINS \
-     {(0x3E <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_PULLUP}, \
-     {(0x1 <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-+
-+#define	LEFT_BUTTON		AT91C_PIN_PB(6)
-+#define	RIGHT_BUTTON		AT91C_PIN_PB(7)
-+
-+#define	JOY_LEFT		AT91C_PIN_PB(14)
-+#define	JOY_RIGHT		AT91C_PIN_PB(15)
-+#define	JOY_UP			AT91C_PIN_PB(16)
-+#define	JOY_DOWN		AT91C_PIN_PB(17)
-+#define	JOY_PUSH		AT91C_PIN_PB(18)
-+
- #endif                          /* _AT91SAM9G45EK_H */
 diff --git a/board/at91sam9g45ek/at91sam9g45ek_defconfig b/board/at91sam9g45ek/at91sam9g45ek_defconfig
 index bcece6f..f9c620e 100644
 --- a/board/at91sam9g45ek/at91sam9g45ek_defconfig
@@ -2210,65 +2143,6 @@ index db80f63..ddf19e1 100644
  CONFIG_HW_INIT=y
  # CONFIG_USER_HW_INIT is not set
  CONFIG_THUMB=y
-diff --git a/board/at91sam9g45ekes/at91sam9g45ekes.c b/board/at91sam9g45ekes/at91sam9g45ekes.c
-index b261849..be91acc 100644
---- a/board/at91sam9g45ekes/at91sam9g45ekes.c
-+++ b/board/at91sam9g45ekes/at91sam9g45ekes.c
-@@ -233,6 +233,36 @@ void df_recovery(AT91PS_DF pDf)
- 
- }
- #endif
-+
-+
-+/*------------------------------------------------------------------------------*/
-+/* \fn    alternate_boot							*/
-+/* \brief This function returns 1 if LEFT BUTTON is pressed			*/
-+/*        during boot sequence							*/
-+/*------------------------------------------------------------------------------*/
-+int alternate_boot_button(void)
-+{
-+	/* Configure PIOs */
-+	const struct pio_desc button_pio[] = {
-+		{"LEFT", LEFT_BUTTON, 0, PIO_PULLUP, PIO_INPUT},
-+		{(char *) 0, 0, 0, PIO_DEFAULT, PIO_PERIPH_A},
-+	};
-+
-+	/* Configure PIO B controller */
-+	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
-+	pio_setup(button_pio);
-+
-+	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
-+	dbg_print("Checking for Alternate boot: ...\n\r");
-+	if ( !pio_get_value(LEFT_BUTTON) ) {
-+		dbg_print("[Alternate]\n\r");		
-+		return 1;
-+	} else {
-+		dbg_print("[Normal]\n\r");		
-+		return 0;
-+	}
-+}
-+
- /*------------------------------------------------------------------------------*/
- /* \fn    df_hw_init								*/
- /* \brief This function performs DataFlash HW initialization			*/
-diff --git a/board/at91sam9g45ekes/at91sam9g45ekes.h b/board/at91sam9g45ekes/at91sam9g45ekes.h
-index 01e79be..5519c8f 100644
---- a/board/at91sam9g45ekes/at91sam9g45ekes.h
-+++ b/board/at91sam9g45ekes/at91sam9g45ekes.h
-@@ -124,4 +124,13 @@
-     {(0x3E <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_PULLUP}, \
-     {(0x1 <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
- 
-+#define	LEFT_BUTTON		AT91C_PIN_PB(6)
-+#define	RIGHT_BUTTON		AT91C_PIN_PB(7)
-+
-+#define	JOY_LEFT		AT91C_PIN_PB(14)
-+#define	JOY_RIGHT		AT91C_PIN_PB(15)
-+#define	JOY_UP			AT91C_PIN_PB(16)
-+#define	JOY_DOWN		AT91C_PIN_PB(17)
-+#define	JOY_PUSH		AT91C_PIN_PB(18)
-+
- #endif                          /* _AT91SAM9G45EKES_H */
 diff --git a/board/at91sam9g45ekes/at91sam9g45ekes_defconfig b/board/at91sam9g45ekes/at91sam9g45ekes_defconfig
 index db80f63..79f8d2e 100644
 --- a/board/at91sam9g45ekes/at91sam9g45ekes_defconfig
@@ -2557,65 +2431,6 @@ index d8ac768..626e318 100644
  CONFIG_HW_INIT=y
  # CONFIG_USER_HW_INIT is not set
  CONFIG_THUMB=y
-diff --git a/board/at91sam9m10ek/at91sam9m10ek.c b/board/at91sam9m10ek/at91sam9m10ek.c
-index d1b87c3..8e2ff4f 100644
---- a/board/at91sam9m10ek/at91sam9m10ek.c
-+++ b/board/at91sam9m10ek/at91sam9m10ek.c
-@@ -235,6 +235,35 @@ void df_recovery(AT91PS_DF pDf)
- 
- }
- #endif
-+
-+/*------------------------------------------------------------------------------*/
-+/* \fn    alternate_boot							*/
-+/* \brief This function returns 1 if LEFT BUTTON is pressed			*/
-+/*        during boot sequence							*/
-+/*------------------------------------------------------------------------------*/
-+int alternate_boot_button(void)
-+{
-+	/* Configure PIOs */
-+	const struct pio_desc button_pio[] = {
-+		{"LEFT", LEFT_BUTTON, 0, PIO_PULLUP, PIO_INPUT},
-+		{(char *) 0, 0, 0, PIO_DEFAULT, PIO_PERIPH_A},
-+	};
-+
-+	/* Configure PIO B controller */
-+	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
-+	pio_setup(button_pio);
-+
-+	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
-+	dbg_print("Checking for Alternate boot: ...\n\r");
-+	if ( !pio_get_value(LEFT_BUTTON) ) {
-+		dbg_print("[Alternate]\n\r");		
-+		return 1;
-+	} else {
-+		dbg_print("[Normal]\n\r");		
-+		return 0;
-+	}
-+}
-+
- /*------------------------------------------------------------------------------*/
- /* \fn    df_hw_init								*/
- /* \brief This function performs DataFlash HW initialization			*/
-diff --git a/board/at91sam9m10ek/at91sam9m10ek.h b/board/at91sam9m10ek/at91sam9m10ek.h
-index 581bbaa..b457e24 100644
---- a/board/at91sam9m10ek/at91sam9m10ek.h
-+++ b/board/at91sam9m10ek/at91sam9m10ek.h
-@@ -123,4 +123,14 @@
- #define BOARD_SD_PINS \
-     {(0x3E <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_PULLUP}, \
-     {(0x1 <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-+
-+#define	LEFT_BUTTON		AT91C_PIN_PB(6)
-+#define	RIGHT_BUTTON		AT91C_PIN_PB(7)
-+
-+#define	JOY_LEFT		AT91C_PIN_PB(14)
-+#define	JOY_RIGHT		AT91C_PIN_PB(15)
-+#define	JOY_UP			AT91C_PIN_PB(16)
-+#define	JOY_DOWN		AT91C_PIN_PB(17)
-+#define	JOY_PUSH		AT91C_PIN_PB(18)
-+
- #endif                          /* _AT91SAM9M10EK_H */
 diff --git a/board/at91sam9m10ek/at91sam9m10ek_defconfig b/board/at91sam9m10ek/at91sam9m10ek_defconfig
 index d8ac768..6da1390 100644
 --- a/board/at91sam9m10ek/at91sam9m10ek_defconfig
@@ -2837,17 +2652,118 @@ index 83676dd..670664b 100644
  # CONFIG_USER_HW_INIT is not set
  CONFIG_THUMB=y
 diff --git a/board/at91sam9m10ek/at91sam9m10sdu_defconfig b/board/at91sam9m10ek/at91sam9m10sdu_defconfig
-index a3a8758..747329a 100644
---- a/board/at91sam9m10ek/at91sam9m10sdu_defconfig
+new file mode 100644
+index 0000000..747329a
+--- /dev/null
 +++ b/board/at91sam9m10ek/at91sam9m10sdu_defconfig
-@@ -1,6 +1,6 @@
- #
- # Automatically generated make config: don't edit
--# Sun Jan  9 22:46:33 2011
+@@ -0,0 +1,107 @@
++#
++# Automatically generated make config: don't edit
 +# Sun Jan 16 21:42:51 2011
- #
- HAVE_DOT_CONFIG=y
- CONFIG_BOARDNAME="at91sam9m10sdu"
++#
++HAVE_DOT_CONFIG=y
++CONFIG_BOARDNAME="at91sam9m10sdu"
++# CONFIG_AT91SAM9260EK is not set
++# CONFIG_AT91SAM9261EK is not set
++# CONFIG_AT91SAM9263EK is not set
++# CONFIG_AT91SAM9RLEK is not set
++# CONFIG_AT91SAM9XEEK is not set
++# CONFIG_AT91SAM9G10EK is not set
++# CONFIG_AT91SAM9G20EK is not set
++# CONFIG_AT91SAM9G45EK is not set
++# CONFIG_AT91SAM9G45EKES is not set
++CONFIG_AT91SAM9M10EK=y
++# CONFIG_AT91SAM9M10EKES is not set
++# CONFIG_AT91CAP9ADK is not set
++# CONFIG_AT91CAP9STK is not set
++# CONFIG_AFEB9260 is not set
++CONFIG_CHIP="AT91SAM9M10"
++CONFIG_BOARD="at91sam9m10ek"
++CONFIG_MACH_TYPE="1830"
++CONFIG_LINK_ADDR="0x000000"
++CONFIG_TOP_OF_MEMORY="0x30A000"
++# CONFIG_CRYSTAL_12_000MHZ is not set
++# CONFIG_CRYSTAL_16_000MHZ is not set
++# CONFIG_CRYSTAL_16_36766MHZ is not set
++CONFIG_CRYSTAL_18_432MHZ=y
++ALLOW_CRYSTAL_18_432MHZ=y
++CONFIG_CRYSTAL="CRYSTAL_18_432MHZ"
++# CONFIG_CPU_CLK_166MHZ is not set
++# CONFIG_CPU_CLK_180MHZ is not set
++# CONFIG_CPU_CLK_200MHZ is not set
++# CONFIG_CPU_CLK_240MHZ is not set
++# CONFIG_CPU_CLK_266MHZ is not set
++CONFIG_CPU_CLK_400MHZ=y
++ALLOW_CPU_CLK_400MHZ=y
++# DISABLE_CPU_CLK_240MHZ is not set
++# CONFIG_BUS_SPEED_83MHZ is not set
++# CONFIG_BUS_SPEED_90MHZ is not set
++# CONFIG_BUS_SPEED_100MHZ is not set
++CONFIG_BUS_SPEED_133MHZ=y
++
++#
++# Memory selection
++#
++# CONFIG_SDRAM is not set
++# CONFIG_SDDRC is not set
++CONFIG_DDR2=y
++ALLOW_DATAFLASH=y
++# ALLOW_FLASH is not set
++ALLOW_NANDFLASH=y
++ALLOW_SDCARD=y
++ALLOW_HSMCI=y
++# ALLOW_PSRAM is not set
++# ALLOW_SDRAM_16BIT is not set
++# CONFIG_RAM_32MB is not set
++# CONFIG_RAM_64MB is not set
++CONFIG_RAM_128MB=y
++# CONFIG_RAM_256MB is not set
++# CONFIG_DATAFLASH is not set
++# CONFIG_FLASH is not set
++# CONFIG_NANDFLASH is not set
++CONFIG_SDCARD=y
++CONFIG_MEMORY="sdcard"
++CONFIG_SDCARD_HS=y
++ALLOW_DATAFLASH_RECOVERY=y
++ALLOW_BOOT_FROM_DATAFLASH_CS0=y
++DATAFLASHCARD_ON_CS0=y
++CONFIG_BOOTSTRAP_MAXSIZE="23000"
++CONFIG_PROJECT="sdcard"
++CONFIG_LOAD_UBOOT=y
++# CONFIG_LOAD_EBOOT is not set
++# CONFIG_LOAD_LINUX is not set
++# CONFIG_LOAD_NK is not set
++# CONFIG_LOAD_64KB is not set
++# CONFIG_LOAD_1MB is not set
++# CONFIG_LOAD_4MB is not set
++CONFIG_DUAL_BOOT=y
++CONFIG_ALT_IMG_ADDRESS="0x00000000"
++CONFIG_ALT_IMG_SIZE="0x00010000"
++CONFIG_ALT_IMAGE_NAME="program.bin"
++CONFIG_OS_IMAGE_NAME="uimage.bin"
++CONFIG_OS_IMG_SIZE="0x280000"
++
++#
++# U-Boot Image Storage Setup
++#
++CONFIG_IMG_ADDRESS="0x00000000"
++CONFIG_SETTING_ADDRESS="0x00000000"
++CONFIG_SETTING_SIZE="0x00001000"
++CONFIG_IMG_SIZE="0x00040000"
++CONFIG_JUMP_ADDR="0x73F00000"
++CONFIG_GLBDRV_ADDR="0x7006b000"
++# CONFIG_LONG_TEST is not set
++CONFIG_DEBUG=y
++CONFIG_DEBUG_INFO=y
++# CONFIG_DEBUG_LOUD is not set
++# CONFIG_DEBUG_VERY_LOUD is not set
++ALLOW_DUAL_BOOT=y
++CONFIG_HW_INIT=y
++# CONFIG_USER_HW_INIT is not set
++CONFIG_THUMB=y
++# CONFIG_SCLK is not set
++# CONFIG_SX_AT91 is not set
++# CONFIG_RAW_AT91 is not set
 diff --git a/board/at91sam9m10ekes/at91sam9m10dfes_defconfig b/board/at91sam9m10ekes/at91sam9m10dfes_defconfig
 index e7c65a1..6a49475 100644
 --- a/board/at91sam9m10ekes/at91sam9m10dfes_defconfig
@@ -2907,99 +2823,6 @@ index e7c65a1..6a49475 100644
  CONFIG_HW_INIT=y
  # CONFIG_USER_HW_INIT is not set
  CONFIG_THUMB=y
-diff --git a/board/at91sam9m10ekes/at91sam9m10ekes.c b/board/at91sam9m10ekes/at91sam9m10ekes.c
-index 8fd882c..a9748db 100644
---- a/board/at91sam9m10ekes/at91sam9m10ekes.c
-+++ b/board/at91sam9m10ekes/at91sam9m10ekes.c
-@@ -55,6 +55,33 @@ void set_cp15(unsigned int value);
- 
- int get_cpsr(void);
- 
-+/*------------------------------------------------------------------------------*/
-+/* \fn    alternate_boot							*/
-+/* \brief This function returns 1 if LEFT BUTTON is pressed			*/
-+/*        during boot sequence							*/
-+/*------------------------------------------------------------------------------*/
-+int alternate_boot_button(void)
-+{
-+	/* Configure PIOs */
-+	const struct pio_desc button_pio[] = {
-+		{"LEFT", LEFT_BUTTON, 0, PIO_PULLUP, PIO_INPUT},
-+		{(char *) 0, 0, 0, PIO_DEFAULT, PIO_PERIPH_A},
-+	};
-+
-+	/* Configure PIO B controller */
-+	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
-+	pio_setup(button_pio);
-+
-+	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
-+	dbg_print("Checking for Alternate boot: ...\n\r");
-+	if ( !pio_get_value(LEFT_BUTTON) ) {
-+		dbg_print("[Alternate]\n\r");		
-+		return 1;
-+	} else {
-+		dbg_print("[Normal]\n\r");		
-+		return 0;
-+	}
-+}
- void set_cpsr(unsigned int value);
- 
- #ifdef CONFIG_HW_INIT
-@@ -225,6 +252,35 @@ void df_recovery(AT91PS_DF pDf)
- 
- }
- #endif
-+
-+/*------------------------------------------------------------------------------*/
-+/* \fn    alternate_boot							*/
-+/* \brief This function returns 1 if LEFT BUTTON is pressed			*/
-+/*        during boot sequence							*/
-+/*------------------------------------------------------------------------------*/
-+int alternate_boot_button(void)
-+{
-+	/* Configure PIOs */
-+	const struct pio_desc button_pio[] = {
-+		{"LEFT", LEFT_BUTTON, 0, PIO_PULLUP, PIO_INPUT},
-+		{(char *) 0, 0, 0, PIO_DEFAULT, PIO_PERIPH_A},
-+	};
-+
-+	/* Configure PIO B controller */
-+	writel((1 << AT91C_ID_PIOB), PMC_PCER + AT91C_BASE_PMC);
-+	pio_setup(button_pio);
-+
-+	/* Return "1" if LEFT BUTTON is pressed during Boot sequence */
-+	dbg_print("Checking for Alternate boot: ...\n\r");
-+	if ( !pio_get_value(LEFT_BUTTON) ) {
-+		dbg_print("[Alternate]\n\r");		
-+		return 1;
-+	} else {
-+		dbg_print("[Normal]\n\r");		
-+		return 0;
-+	}
-+}
-+
- /*------------------------------------------------------------------------------*/
- /* \fn    df_hw_init								*/
- /* \brief This function performs DataFlash HW initialization			*/
-diff --git a/board/at91sam9m10ekes/at91sam9m10ekes.h b/board/at91sam9m10ekes/at91sam9m10ekes.h
-index 222c953..e6abfa7 100644
---- a/board/at91sam9m10ekes/at91sam9m10ekes.h
-+++ b/board/at91sam9m10ekes/at91sam9m10ekes.h
-@@ -122,4 +122,14 @@
- #define BOARD_SD_PINS \
-     {(0x3E <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_PULLUP}, \
-     {(0x1 <<  0), AT91C_BASE_PIOA, AT91C_ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-+
-+#define	LEFT_BUTTON		AT91C_PIN_PB(6)
-+#define	RIGHT_BUTTON		AT91C_PIN_PB(7)
-+
-+#define	JOY_LEFT		AT91C_PIN_PB(14)
-+#define	JOY_RIGHT		AT91C_PIN_PB(15)
-+#define	JOY_UP			AT91C_PIN_PB(16)
-+#define	JOY_DOWN		AT91C_PIN_PB(17)
-+#define	JOY_PUSH		AT91C_PIN_PB(18)
-+
- #endif                          /* _AT91SAM9M10EK_H */
 diff --git a/board/at91sam9m10ekes/at91sam9m10ekes_defconfig b/board/at91sam9m10ekes/at91sam9m10ekes_defconfig
 index e7c65a1..e6b3027 100644
 --- a/board/at91sam9m10ekes/at91sam9m10ekes_defconfig

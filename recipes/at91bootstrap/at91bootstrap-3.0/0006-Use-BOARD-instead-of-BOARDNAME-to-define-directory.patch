@@ -1,7 +1,7 @@
-From 32f8ea104f8129872e27d0b719e2e7f18b537bb0 Mon Sep 17 00:00:00 2001
+From d2db62d2c891693358d0cfd79a462609441715ed Mon Sep 17 00:00:00 2001
 From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
-Date: Mon, 17 Jan 2011 00:00:16 +0100
-Subject: [PATCH 07/13] Use BOARD instead of BOARDNAME to define directory
+Date: Sun, 23 Jan 2011 19:38:04 +0100
+Subject: [PATCH 06/16] Use BOARD instead of BOARDNAME to define directory
 
 ---
  Makefile |    4 ++--
