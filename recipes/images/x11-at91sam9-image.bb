@@ -44,7 +44,6 @@ IMAGE_INSTALL += "\
 	tslib-calibrate \
 	tslib-tests \
 	libstdc++ \
-#	${IMAGE_EXTRA_INSTALL} \
 #	nbench-byte \
 #	pointercal \
 	"
