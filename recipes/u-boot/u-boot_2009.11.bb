@@ -28,6 +28,7 @@ SRC_URI_append_at91 = "\
 	file://at91/0013-atmel_dataflash.c-Status-printout-depend-on-DEBUG.patch;apply=yes \
 	file://at91/0014-AT91-MCI-Add-support-for-SD-Card.patch;apply=yes \
 	file://at91/0015-sam9m10g45ek-Add-configuration-file.patch;apply=yes \
+	file://at91/0016-SupportEnv-load-from-SD-Card.patch;apply=yes \
 	"
 
 TARGET_LDFLAGS = ""
