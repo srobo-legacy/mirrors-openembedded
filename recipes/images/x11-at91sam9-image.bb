@@ -1,12 +1,19 @@
 # Angstrom x11-gpe-image with additional apps included
 XSERVER = "xserver-xorg \
            xf86-input-evdev \
-           xf86-input-tslib \
-           xf86-video-fbdev "
+           xf86-input-mouse \
+           xf86-video-fbdev \
+           xf86-input-keyboard \
+	   xinput-calibrator \
+	  "
+#           xf86-input-tslib \
+
 
 require x11-gpe-image.bb
 
 export IMAGE_BASENAME = "x11-at91sam9-image"
+
+# SPLASH = "exquisite exquisite-themes exquisite-theme-angstrom"
 
 DEPENDS = "task-base"
 
