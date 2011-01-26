@@ -1,7 +1,7 @@
 require linux.inc
 
-PR = "r6"
-
+PR = "r8"
+AT91_EXPERIMENTAL = "4"
 S = "${WORKDIR}/linux-${PV}"
 
 # Mark archs/machines that this kernel supports
@@ -19,21 +19,54 @@ DEFAULT_PREFERENCE_at91sam9g20ek	= "2"
 
 # machine boots with it, works but was not tested too much
 DEFAULT_PREFERENCE_at91sam9263ek = "-1"
-DEFAULT_PREFERENCE_tosa = "-1"
+DEFAULT_PREFERENCE_tosa = "-1"/home/ulf/projects/OE_atmel/build/tmp-angstrom_2008_1/work/at91sam9m10ekes-angstrom-linux-gnueabi/linux-2.6.30-r8
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
            ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/patch-${PV}.10.bz2;apply=yes;name=stablepatch \
            file://aufs2-30.patch \
            file://defconfig"
 
+
+SRC_URI_at91sam9m10ekes = " \
+	   ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
+	   http://maxim.org.za/AT91RM9200/2.6/${PV}-at91.patch.gz;apply=no;name=at91patch \
+	   ftp://www.at91.com/pub/linux/${PV}-at91/${PV}-at91-exp.${AT91_EXPERIMENTAL}.tar.gz;apply=no;name=at91exp${AT91_EXPERIMENTAL} \
+	   file://at91/exp.${AT91_EXPERIMENTAL}/0001-Configurable-partition-size.patch;apply=yes \
+	   file://at91/exp.${AT91_EXPERIMENTAL}/0002-mach-at91-KConfig-cleanup.patch;apply=yes \
+	   file://exp.${AT91_EXPERIMENTAL}/defconfig"
+
+
+
+do_patch_prepend_at91sam9m10ekes() {
+	bb.build.exec_func('do_apply_at91_exp_patch', d)
+}
+
+do_apply_at91_exp_patch () {
+	cd	${S}
+	cat	../${PV}-at91.patch	| patch -p1
+	for	f in `ls ../${PV}-at91-exp.${AT91_EXPERIMENTAL}/*.patch` ; do
+		cat $f	| patch -p1
+	done
+}
+
+do_unpack_append_at91sam9m10ekes() {
+	bb.build.exec_func('do_apply_move_defconfig', d)
+}
+
+do_apply_move_defconfig () {
+	cd	${WORKDIR}
+	mv	exp.${AT91_EXPERIMENTAL}/defconfig	defconfig
+}
+
 SRC_URI_at91 = " \
 	   ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
 	   http://maxim.org.za/AT91RM9200/2.6/2.6.30-at91.patch.gz;apply=yes;name=at91patch \
 	   ftp://www.at91.com/pub/buildroot/2.6.30-exp.2.patch.bz2;apply=yes;name=at91exp2 \
-	   file://at91/linux-2.6.30-001-configurable-partition-size.patch.patch \
-	   file://at91/linux-2.6.30-002-mach-at91-Kconfig.patch \
-	   file://at91/linux-2.6.30-003-sam9m10g45ek.patch \
+	   file://at91/exp.2/linux-2.6.30-001-configurable-partition-size.patch.patch \
+	   file://at91/exp.2/linux-2.6.30-002-mach-at91-Kconfig.patch \
+	   file://at91/exp.2/linux-2.6.30-003-sam9m10g45ek.patch \
 	   file://defconfig"
+
 
 SRC_URI_append_mpc8315e-rdb = " file://mpc8315erdb-add-msi-to-dts.patch"
 
@@ -48,5 +81,7 @@ SRC_URI[at91patch.md5sum] = "f13ab353b11329ce3d605b6f40e77fa6"
 SRC_URI[at91patch.sha256sum] = "41991e8aa2e5fe8e5dfd47b1e5c446fa03c3ee96a5eae54fd6ec15d1d9afef30"
 SRC_URI[at91exp2.md5sum] = "770c7a2bfb925111a8c0e0d4c8c4764e"
 SRC_URI[at91exp2.sha256sum] = "58894965b253eae0c4caacedc3463cf186c18431ca0d71b767a3b36aa40ec388"
+SRC_URI[at91exp4.md5sum] = "9ca9901af101d9966a3acf80193bfd7d"
+SRC_URI[at91exp4.sha256sum] = "b948199be87cf9ba280ea649aa1b477b36344a44aae52fdc3bb56344adf73f76"
 
 
