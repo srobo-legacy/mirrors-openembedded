@@ -55,7 +55,11 @@ IMAGE_INSTALL += "\
 #	pointercal \
 	"
 
+IMAGE_PREPROCESS_COMMAND = "create_etc_timestamp"
+
 # IMAGE_LINGUAS += " se no dk fi"
+#zap root password for release images
+ROOTFS_POSTPROCESS_COMMAND += '${@base_conditional("DISTRO_TYPE", "release", "zap_root_password; ", "",d)}'
 ROOTFS_POSTPROCESS_COMMAND += "set_image_autologin; "
 ROOTFS_POSTPROCESS_COMMAND += "install_linguas; "
 
