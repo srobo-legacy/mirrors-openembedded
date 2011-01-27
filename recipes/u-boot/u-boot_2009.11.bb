@@ -54,8 +54,19 @@ TARGET_LDFLAGS = ""
 inherit base
 
 do_compile () {
-       oe_runmake ${UBOOT_MACHINE}
-       oe_runmake all
+	if ! [ "x${UBOOT_MACHINES}" == "x" ] ; then
+		for board in ${UBOOT_MACHINES} ; do
+			if ! [ `grep ${board}_config Makefile | wc -c` == 0 ] ; then
+				mkdir -p binaries/${board}
+				oe_runmake O=binaries/${board} distclean
+				oe_runmake O=binaries/${board} ${board}_config
+				oe_runmake O=binaries/${board} all
+			fi
+		done
+	else
+	       oe_runmake ${UBOOT_MACHINE}
+	       oe_runmake all
+	fi
 }
 
 SRC_URI[md5sum] = "d94700614225f53c853dfe714eb5fa47"
