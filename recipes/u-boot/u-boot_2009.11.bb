@@ -8,7 +8,7 @@ DEFAULT_PREFERENCE_at91sam9g45ek = "2"
 DEFAULT_PREFERENCE_at91sam9m10ekes = "2"
 DEFAULT_PREFERENCE_at91sam9m10g45ek = "2"
 DEFAULT_PREFERENCE_at91sam9g45ek = "2"
-DEFAULT_PREFERENCE_at91sam9g45ekes = "2"
+DEFAULT_PREFERENCE_adb4000 = "2"
 
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2 "
@@ -29,6 +29,10 @@ SRC_URI_append_at91 = "\
 	file://at91/0014-AT91-MCI-Add-support-for-SD-Card.patch;apply=yes \
 	file://at91/0015-sam9m10g45ek-Add-configuration-file.patch;apply=yes \
 	file://at91/0016-SupportEnv-load-from-SD-Card.patch;apply=yes \
+	"
+
+SRC_URI_append_adb4000 = "\
+	file://at91/100-icnova.patch \
 	"
 
 TARGET_LDFLAGS = ""
