@@ -33,29 +33,24 @@ SRC_URI_at91sam9m10ekes = " \
 	   ftp://www.at91.com/pub/linux/${PV}-at91/${PV}-at91-exp.${AT91_EXPERIMENTAL}.tar.gz;apply=no;name=at91exp${AT91_EXPERIMENTAL} \
 	   file://at91/exp.${AT91_EXPERIMENTAL}/0001-Configurable-partition-size.patch;apply=yes \
 	   file://at91/exp.${AT91_EXPERIMENTAL}/0002-mach-at91-KConfig-cleanup.patch;apply=yes \
+	   http://www.hd-wireless.se/images/stories/public_pdf/2.6.30-at91-sdio-irq-support.patch;apply=yes;name=owlwifi \
 	   file://exp.${AT91_EXPERIMENTAL}/defconfig"
 
-
+at91sam_patch = " \
+		"
 
 do_patch_prepend_at91sam9m10ekes() {
 	bb.build.exec_func('do_apply_at91_exp_patch', d)
 }
 
 do_apply_at91_exp_patch () {
+	cd	${WORKDIR}
+	mv	exp.${AT91_EXPERIMENTAL}/defconfig	defconfig
 	cd	${S}
 	cat	../${PV}-at91.patch	| patch -p1
 	for	f in `ls ../${PV}-at91-exp.${AT91_EXPERIMENTAL}/*.patch` ; do
 		cat $f	| patch -p1
 	done
-}
-
-do_unpack_append_at91sam9m10ekes() {
-	bb.build.exec_func('do_apply_move_defconfig', d)
-}
-
-do_apply_move_defconfig () {
-	cd	${WORKDIR}
-	mv	exp.${AT91_EXPERIMENTAL}/defconfig	defconfig
 }
 
 SRC_URI_at91 = " \
@@ -68,7 +63,21 @@ SRC_URI_at91 = " \
 	   file://defconfig"
 
 
+
 SRC_URI_append_mpc8315e-rdb = " file://mpc8315erdb-add-msi-to-dts.patch"
+
+SRC_URI_append_at91sam9260ek = ${at91sam_patch}
+SRC_URI_append_at91sam9261ek = ${at91sam_patch}
+SRC_URI_append_at91sam9263ek = ${at91sam_patch}
+SRC_URI_append_at91sam9rlek = ${at91sam_patch} 
+SRC_URI_append_at91sam9g20ek = ${at91sam_patch}
+SRC_URI_append_at91sam9g20ek_2mmc = ${at91sam_patch}
+SRC_URI_append_at91sam9g10ek = ${at91sam_patch}
+SRC_URI_append_at91sam9xeek = ${at91sam_patch}
+SRC_URI_append_at91sam9g45ekes = ${at91sam_patch}
+SRC_URI_append_at91sam9m10ekes = ${at91sam_patch}
+SRC_URI_append_at91sam9m10g45ek = ${at91sam_patch}
+
 
 # SRC_URI_append_at91sam9263ek = " file://hrw-linux-2.6.30-exp.patch "
 
@@ -84,4 +93,5 @@ SRC_URI[at91exp2.sha256sum] = "58894965b253eae0c4caacedc3463cf186c18431ca0d71b76
 SRC_URI[at91exp4.md5sum] = "9ca9901af101d9966a3acf80193bfd7d"
 SRC_URI[at91exp4.sha256sum] = "b948199be87cf9ba280ea649aa1b477b36344a44aae52fdc3bb56344adf73f76"
 
-
+SRC_URI[owlwifi.md5sum] = "8ae8eafddf3d8a1c507aca4d09627a4d"
+SRC_URI[owlwifi.sha256sum] = "eebc26aaa9f746eff90cce1d0a3537d2b8f48a69a054733c749e4b12c3ad6069"
