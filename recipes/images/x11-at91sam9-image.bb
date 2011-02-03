@@ -52,7 +52,32 @@ IMAGE_INSTALL += "\
 	tslib-tests \
 	libstdc++ \
 #	nbench-byte \
-#	pointercal \
+	pointercal \
+	gstreamer \
+	gst-plugins-base \
+	gst-plugins-good \
+	gst-plugins-bad \
+	gst-plugins-ugly \
+	gst-plugin-avi \
+	gst-plugin-mpegstream \
+	gst-plugin-qtdemux \
+	gst-plugin-mpegvideoparse \
+	gst-plugin-asf \
+	gst-plugin-alsa \
+	gst-plugin-ossaudio \
+	gst-plugin-audioresample \
+	gst-plugin-audioconvert \
+	gst-plugin-ximagesink \
+	gst-plugin-fbdevsink \
+	gst-plugin-faad \
+	gst-plugin-mad \    
+	gst-plugin-playbin \
+	gst-plugin-decodebin \
+	gst-plugin-typefindfunctions \
+	gst-ffmpeg \
+#	gst-plugin-on2-8170 \
+#	on2-8170-libs \
+	owl-wifi \
 	"
 
 IMAGE_PREPROCESS_COMMAND = "create_etc_timestamp"

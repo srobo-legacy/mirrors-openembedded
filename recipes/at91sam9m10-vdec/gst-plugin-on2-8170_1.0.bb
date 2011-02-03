@@ -13,13 +13,17 @@ CFLAGS += "-I${STAGING_INCDIR}/glib-2.0 -I${STAGING_INCDIR}/gstreamer-0.10 -I${S
 GST_MAJORMINOR=0.10
 PROVIDES += "gstx170"
 
-SRC_URI = "ftp://ftp.linux4sam.org/pub/demo/linux4sam_1.9/codec/gst-plugin-x170-${PV}.tar.gz"
+SRC_URI = "ftp://ftp.linux4sam.org/pub/demo/linux4sam_1.9/codec/gst-plugin-x170-${PV}.tar.gz \
+	   file://hantro \
+	"
 S = ${WORKDIR}/gst-plugin-x170-${PV}
 
 inherit autotools
 
 FILES_${PN} = " \
 	${libdir}/gstreamer-${GST_MAJORMINOR}/*.so \
+	${etcdir}/init.d/hantro \
+	${etcdir}/rc5.d/S51hantro \
 	"
 
 FILES_${PN}-dev = " \
@@ -38,4 +42,7 @@ do_install() {
 	echo install ...
 	install -d ${D}/${libdir}/gstreamer-${GST_MAJORMINOR}
 	oe_libinstall -s -C ${S}/src/.libs/ libgstx170   ${D}/${libdir}/gstreamer-${GST_MAJORMINOR}
+	install	-m 0755 ${WORKDIR}/hantro		 ${D}/${etcdir}/init.d/hantro
+	ln -s	../init.d/hantro			 ${D}/${etcdir}/rc5.d/S51hantro
 }
+

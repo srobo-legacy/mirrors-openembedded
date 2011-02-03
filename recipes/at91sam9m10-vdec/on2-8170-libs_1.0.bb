@@ -10,6 +10,9 @@ PROVIDES += "hantro-libs"
 SRC_URI ="ftp://ftp.linux4sam.org/pub/demo/linux4sam_1.9/codec/on2-8170-libs-1.0.tar.gz"
 
 inherit autotools
+
+TARGET_CC_ARCH += "${LDFLAGS}"
+
 S = ${WORKDIR}/on2-8170-libs-${PV}
 
 FILES_${PN} = " \
@@ -47,3 +50,7 @@ do_install() {
 	oe_libinstall -s  -C ${S}  libdecx170p  ${D}/${libdir}/
 	oe_libinstall -s  -C ${S}  libdecx170v  ${D}/${libdir}/
 }
+
+SRC_URI[md5sum] = "6dbdf510d16f120df9072ca7a25b1804"
+SRC_URI[sha256sum] = "db7390a13e7c0426894a6f966ecde1f89e6566416088c50729750e800306a2de"
+
