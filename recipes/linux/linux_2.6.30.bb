@@ -1,6 +1,6 @@
 require linux.inc
 
-PR = "r8"
+PR = "r9"
 AT91_EXPERIMENTAL = "4"
 S = "${WORKDIR}/linux-${PV}"
 
@@ -33,7 +33,7 @@ SRC_URI_at91sam9m10ekes = " \
 	   ftp://www.at91.com/pub/linux/${PV}-at91/${PV}-at91-exp.${AT91_EXPERIMENTAL}.tar.gz;apply=no;name=at91exp${AT91_EXPERIMENTAL} \
 	   file://at91/exp.${AT91_EXPERIMENTAL}/0001-Configurable-partition-size.patch;apply=yes \
 	   file://at91/exp.${AT91_EXPERIMENTAL}/0002-mach-at91-KConfig-cleanup.patch;apply=yes \
-	   http://www.hd-wireless.se/images/stories/public_pdf/2.6.30-at91-sdio-irq-support.patch;apply=yes;name=owlwifi \
+	   http://linux.hd-wireless.se/pub/Linux/BuildSAM9M10EKES/2.6.30-at91-sdio-irq-support-both-slots.patch;apply=yes;name=owlwifi \
 	   file://exp.${AT91_EXPERIMENTAL}/defconfig"
 
 at91sam_patch = " \
@@ -93,5 +93,7 @@ SRC_URI[at91exp2.sha256sum] = "58894965b253eae0c4caacedc3463cf186c18431ca0d71b76
 SRC_URI[at91exp4.md5sum] = "9ca9901af101d9966a3acf80193bfd7d"
 SRC_URI[at91exp4.sha256sum] = "b948199be87cf9ba280ea649aa1b477b36344a44aae52fdc3bb56344adf73f76"
 
-SRC_URI[owlwifi.md5sum] = "8ae8eafddf3d8a1c507aca4d09627a4d"
-SRC_URI[owlwifi.sha256sum] = "eebc26aaa9f746eff90cce1d0a3537d2b8f48a69a054733c749e4b12c3ad6069"
+SRC_URI[owlwifi.md5sum] = "5ead573ee187ebd723569ec54186e99a"
+SRC_URI[owlwifi.sha256sum] = "8ee739bf171e878bbd9a02113f3a6a5287a3653dec71e4c11515c2c890f31c62"
+
+
