@@ -1,0 +1,33 @@
+DESCRIPTION = "at91 sd-card tools: Useful utilities for Booting an at91 from an SD-Card"
+SECTION = "bootloaders"
+
+PR = "r3"
+DEFAULT_PREFERENCE = "-1"
+DEFAULT_PREFERENCE_at91sam9g45ek = "3"
+DEFAULT_PREFERENCE_at91sam9g45ekes = "3"
+DEFAULT_PREFERENCE_at91sam9m10ek = "3"
+DEFAULT_PREFERENCE_at91sam9m10ekes = "3"
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+SRC_URI = " \
+	file://${MACHINE}.machid \
+	file://build.sh \
+	file://genfiles.sh \
+	file://mksdcard.sh \
+	http://ftp.at91.com/build/buildroot/at91sam9g45-USBMSA.bin \
+	"
+SD_TOOLS = "${DEPLOY_DIR_IMAGE}/at91-sd-card-tools"
+
+do_install () {
+	install	-d	${SD_TOOLS}
+	if [ -e ${WORKDIR}/${MACHINE}.machid ] ; then
+		install -m 0755	${SD_TOOLS}/${MACHINE}.machid
+	fi
+	install -m 0755	${WORKDIR}/build.sh			${SD_TOOLS}/build.sh
+	install -m 0755	${WORKDIR}/genfiles.sh			${SD_TOOLS}/genfiles.sh
+	install -m 0755	${WORKDIR}/mksdcard.sh			${SD_TOOLS}/mksdcard.sh
+	install -m 0755	${WORKDIR}/at91sam9g45-USBMSA.bin	${SD_TOOLS}/PROGRAM.BIN
+
+}
+

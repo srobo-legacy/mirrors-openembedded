@@ -1,0 +1,9 @@
+setenv	at91sam9m10ekes		9cd
+setenv	at91sam9g45ekes		8a4
+setenv	at91sam9m10g45ek	726
+
+setenv machid ${at91sam9m10g45ek}
+
+setenv bootargs 'mem=128M console=ttyS0,115200 root=/dev/mmcblk0p2 rootdelay=2 rootfstype=ext3 rw'
+
+
