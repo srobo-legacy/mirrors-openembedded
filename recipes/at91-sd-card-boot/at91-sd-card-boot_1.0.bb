@@ -15,19 +15,22 @@ SRC_URI = " \
 	file://build.sh \
 	file://genfiles.sh \
 	file://mksdcard.sh \
-	http://ftp.at91.com/build/buildroot/at91sam9g45-USBMSA.bin \
+	ftp://ftp.at91.com/pub/buildroot/at91sam9g45-USB-MSA.bin;name=msa \
 	"
 SD_TOOLS = "${DEPLOY_DIR_IMAGE}/at91-sd-card-tools"
 
 do_install () {
 	install	-d	${SD_TOOLS}
 	if [ -e ${WORKDIR}/${MACHINE}.machid ] ; then
-		install -m 0755	${SD_TOOLS}/${MACHINE}.machid
+		install -m 0755	${WORKDIR}/${MACHINE}.machid	${SD_TOOLS}/${MACHINE}.machid
 	fi
 	install -m 0755	${WORKDIR}/build.sh			${SD_TOOLS}/build.sh
 	install -m 0755	${WORKDIR}/genfiles.sh			${SD_TOOLS}/genfiles.sh
 	install -m 0755	${WORKDIR}/mksdcard.sh			${SD_TOOLS}/mksdcard.sh
-	install -m 0755	${WORKDIR}/at91sam9g45-USBMSA.bin	${SD_TOOLS}/PROGRAM.BIN
+	install -m 0755	${WORKDIR}/at91sam9g45-USB-MSA.bin	${SD_TOOLS}/PROGRAM.BIN
 
 }
+
+SRC_URI[msa.md5sum] = "72f9ad8901a16eccb7468f5d9f5c21a5"
+SRC_URI[msa.sha256sum] = "75168ad52fa4429ad718630235720c1d391a1a05d058c8b4a49a110c615c2c10"
 
