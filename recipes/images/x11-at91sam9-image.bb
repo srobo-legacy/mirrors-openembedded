@@ -46,11 +46,12 @@ IMAGE_INSTALL += "\
 	fbv \
 	dosfstools \
 	mtd-utils \
-#	gpe-mini-browser \
+#	gpe-mini-browser2 \
 	tslib-conf \
 	tslib-calibrate \
 	tslib-tests \
 	libstdc++ \
+	nano \
 #	nbench-byte \
 	pointercal \
 	gstreamer \
