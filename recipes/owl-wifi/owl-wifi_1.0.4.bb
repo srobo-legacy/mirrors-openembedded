@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.hd-wireless.se"
 PRIORITY = "optional"
 SECTION = "kernel/modules"
 LICENSE = "GPL"
-PR = "r3"
+PR = "r0"
 RDEPENDS = "wireless-tools \
 	 wpa-supplicant \
 	netbase \
@@ -32,16 +32,16 @@ do_install() {
         install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/net
         install -m 0644 ${S}/owl*${KERNEL_OBJECT_SUFFIX} ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/net
 	# This will overwrite /etc/network/interfaces!
-	install -d ${D}${sysconfdir}/network
-	install -m 0644 ${WORKDIR}/interfaces ${D}${sysconfdir}/network/interfaces
-	if ! [ "x${ESSNAME}" == "x" ] ; then
-		sed	-i "s/wireless_essid any/wireless_essid  ${ESSNAME}/g"	${D}${sysconfdir}/network/interfaces
-	fi
-	if ! [ "x${ESSKEY}" == "x" ] ; then
-		sed	-i "s/#	wireless_key	ESSKEY/	wireless_key	${ESSKEY}/g"	${D}${sysconfdir}/network/interfaces
-	fi
-	install -d ${D}/home/root
-	install -m 0755 ${WORKDIR}/fosdem_net.sh ${D}/home/root/fosdem_net.sh
+#	install -d ${D}${sysconfdir}/network
+#	install -m 0644 ${WORKDIR}/interfaces ${D}${sysconfdir}/network/interfaces
+#	if ! [ "x${ESSNAME}" == "x" ] ; then
+#		sed	-i "s/wireless_essid any/wireless_essid  ${ESSNAME}/g"	${D}${sysconfdir}/network/interfaces
+#	fi
+#	if ! [ "x${ESSKEY}" == "x" ] ; then
+#		sed	-i "s/#	wireless_key	ESSKEY/	wireless_key	${ESSKEY}/g"	${D}${sysconfdir}/network/interfaces
+#	fi
+#	install -d ${D}/home/root
+#	install -m 0755 ${WORKDIR}/fosdem_net.sh ${D}/home/root/fosdem_net.sh
 }
 
 SRC_URI[md5sum] = "e8df44b8c766436fdd798fa5cd6d1a02"
