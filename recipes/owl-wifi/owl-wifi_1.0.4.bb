@@ -4,6 +4,7 @@ PRIORITY = "optional"
 SECTION = "kernel/modules"
 LICENSE = "GPL"
 PR = "r0"
+
 RDEPENDS = "wireless-tools \
 	 wpa-supplicant \
 	netbase \
