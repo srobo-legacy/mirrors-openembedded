@@ -1,0 +1,54 @@
+From 03aac0c3b3d9dabcd7d2638dc11c9fd75ff9d94f Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sat, 16 Apr 2011 01:35:31 +0200
+Subject: [PATCH 12/24] at91: add I2C definitions for at91sam9g20ek boards
+
+I2C devices definitions for access to eeprom and WM8731
+audio codec.
+
+Signed-off-by: Nicolas Ferre <nicolas.ferre@atmel.com>
+
+Ported to linux-2.6.38
+Signed-off-by: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+---
+ arch/arm/mach-at91/board-sam9g20ek-2slot-mmc.c |    1 +
+ arch/arm/mach-at91/board-sam9g20ek.c           |   11 +++++++++++
+ 2 files changed, 12 insertions(+), 0 deletions(-)
+
+diff --git a/arch/arm/mach-at91/board-sam9g20ek-2slot-mmc.c b/arch/arm/mach-at91/board-sam9g20ek-2slot-mmc.c
+index bb48f31..4061d82 100644
+--- a/arch/arm/mach-at91/board-sam9g20ek-2slot-mmc.c
++++ b/arch/arm/mach-at91/board-sam9g20ek-2slot-mmc.c
+@@ -289,6 +289,7 @@ static void __init ek_add_device_buttons(void) {}
+ static struct i2c_board_info __initdata ek_i2c_devices[] = {
+ 	{
+ 		I2C_BOARD_INFO("24c512", 0x50),
++		I2C_BOARD_INFO("wm8731", 0x1b),
+ 	},
+ };
+ 
+diff --git a/arch/arm/mach-at91/board-sam9g20ek.c b/arch/arm/mach-at91/board-sam9g20ek.c
+index ca8198b..ba9ac99 100644
+--- a/arch/arm/mach-at91/board-sam9g20ek.c
++++ b/arch/arm/mach-at91/board-sam9g20ek.c
+@@ -374,6 +374,17 @@ static struct i2c_board_info __initdata ek_i2c_devices[] = {
+ };
+ 
+ 
++/*
++ * I2C
++ */
++static struct i2c_board_info __initdata ek_i2c_devices[] = {
++	{
++		I2C_BOARD_INFO("24c512", 0x50),
++		I2C_BOARD_INFO("wm8731", 0x1b),
++	},
++};
++
++
+ static void __init ek_board_init(void)
+ {
+ 	/* Serial */
+-- 
+1.6.3.3
+
