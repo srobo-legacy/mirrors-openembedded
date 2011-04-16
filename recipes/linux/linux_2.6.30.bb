@@ -27,33 +27,16 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=ke
            file://aufs2-30.patch \
            file://defconfig"
 
-SRC_URI_at91sam9m10ekes = " \
+AT91_EXPERIMENTAL_4 = " \
 	   ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
 	   http://maxim.org.za/AT91RM9200/2.6/${PV}-at91.patch.gz;apply=no;name=at91patch \
 	   ftp://www.at91.com/pub/linux/${PV}-at91/${PV}-at91-exp.${AT91_EXPERIMENTAL}.tar.gz;apply=no;name=at91exp${AT91_EXPERIMENTAL} \
-	   file://at91/exp.${AT91_EXPERIMENTAL}/0001-Configurable-partition-size.patch;apply=yes \
-	   file://at91/exp.${AT91_EXPERIMENTAL}/0002-mach-at91-KConfig-cleanup.patch;apply=yes \
+	   file://at91/exp.4/0001-Configurable-partition-size.patch;apply=yes \
+	   file://at91/exp.4/0002-mach-at91-KConfig-cleanup.patch;apply=yes \
 	   http://linux.hd-wireless.se/pub/Linux/BuildSAM9M10EKES/2.6.30-at91-sdio-irq-support-both-slots.patch;apply=yes;name=owlwifi \
-	   file://exp.${AT91_EXPERIMENTAL}/defconfig"
+	   file://defconfig"
 
-at91sam_patch = " \
-		"
-
-do_patch_prepend_at91sam9m10ekes() {
-	bb.build.exec_func('do_apply_at91_exp_patch', d)
-}
-
-do_apply_at91_exp_patch () {
-	cd	${WORKDIR}
-	mv	exp.${AT91_EXPERIMENTAL}/defconfig	defconfig
-	cd	${S}
-	cat	../${PV}-at91.patch	| patch -p1
-	for	f in `ls ../${PV}-at91-exp.${AT91_EXPERIMENTAL}/*.patch` ; do
-		cat $f	| patch -p1
-	done
-}
-
-SRC_URI_at91 = " \
+AT91_EXPERIMENTAL_2 = " \
 	   ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
 	   http://maxim.org.za/AT91RM9200/2.6/2.6.30-at91.patch.gz;apply=yes;name=at91patch \
 	   ftp://www.at91.com/pub/buildroot/2.6.30-exp.2.patch.bz2;apply=yes;name=at91exp2 \
@@ -61,6 +44,41 @@ SRC_URI_at91 = " \
 	   file://at91/linux-2.6.30-002-mach-at91-Kconfig.patch \
 	   file://at91/linux-2.6.30-003-sam9m10g45ek.patch \
 	   file://defconfig"
+
+at91sam_patch = " \
+		"
+
+SRC_URI_at91sam9m10ekes = "${AT91_EXPERIMENTAL_4}"
+SRC_URI_at91cap9stk	= "${AT91_EXPERIMENTAL_4}"
+SRC_URI_at91		= "${AT91_EXPERIMENTAL_2}"
+
+SRC_URI_append_at91sam9260ek = ${at91sam_patch}
+SRC_URI_append_at91sam9261ek = ${at91sam_patch}
+SRC_URI_append_at91sam9263ek = ${at91sam_patch}
+SRC_URI_append_at91sam9g10ek = ${at91sam_patch}
+SRC_URI_append_at91sam9g20ek = ${at91sam_patch}
+SRC_URI_append_at91sam9g20ek_2mmc = ${at91sam_patch}
+SRC_URI_append_at91sam9g45ekes = ${at91sam_patch}
+SRC_URI_append_at91sam9m10ekes = ${at91sam_patch}
+SRC_URI_append_at91sam9m10g45ek = ${at91sam_patch}
+SRC_URI_append_at91sam9rlek = ${at91sam_patch}
+SRC_URI_append_at91sam9xeek = ${at91sam_patch}
+
+#do_patch_prepend_at91sam9m10ekes() {
+#	bb.build.exec_func('do_apply_at91_exp_patch', d)
+#}
+
+addtask do_apply_at91_exp_patch before do_patch after do_unpack
+
+do_apply_at91_exp_patch () {
+	cd	${WORKDIR}
+	cd	${S}
+	cat	../${PV}-at91.patch	| patch -p1
+	for	f in `ls ../${PV}-at91-exp.${AT91_EXPERIMENTAL}/*.patch` ; do
+		cat $f	| patch -p1
+	done
+}
+
 
 SRC_URI_ronetix-pm9g45 = " \
 	   ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
@@ -84,18 +102,6 @@ SRC_URI_ronetix-pm9g45 = " \
 	
 
 SRC_URI_append_mpc8315e-rdb = " file://mpc8315erdb-add-msi-to-dts.patch"
-
-SRC_URI_append_at91sam9260ek = ${at91sam_patch}
-SRC_URI_append_at91sam9261ek = ${at91sam_patch}
-SRC_URI_append_at91sam9263ek = ${at91sam_patch}
-SRC_URI_append_at91sam9rlek = ${at91sam_patch} 
-SRC_URI_append_at91sam9g20ek = ${at91sam_patch}
-SRC_URI_append_at91sam9g20ek_2mmc = ${at91sam_patch}
-SRC_URI_append_at91sam9g10ek = ${at91sam_patch}
-SRC_URI_append_at91sam9xeek = ${at91sam_patch}
-SRC_URI_append_at91sam9g45ekes = ${at91sam_patch}
-SRC_URI_append_at91sam9m10ekes = ${at91sam_patch}
-SRC_URI_append_at91sam9m10g45ek = ${at91sam_patch}
 
 # SRC_URI_append_at91sam9263ek = " file://hrw-linux-2.6.30-exp.patch "
 
