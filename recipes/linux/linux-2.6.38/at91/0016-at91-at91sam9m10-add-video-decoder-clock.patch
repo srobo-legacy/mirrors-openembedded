@@ -1,0 +1,57 @@
+From 8d8de69bbaede695cc9b1305c07a86006c0b3a4e Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sat, 16 Apr 2011 02:14:19 +0200
+Subject: [PATCH 16/24] at91: at91sam9m10 add video decoder clock
+
+Signed-off-by: Patrice Vilchez <patrice.vilchez@atmel.com>
+
+Ported to linux-2.6.38
+Signed-off-by: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+---
+ arch/arm/mach-at91/board-sam9m10g45ek.c |    2 +-
+ arch/arm/mach-at91/clock.c              |    9 ---------
+ 2 files changed, 1 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm/mach-at91/board-sam9m10g45ek.c b/arch/arm/mach-at91/board-sam9m10g45ek.c
+index 4e0d0a8..9859011 100644
+--- a/arch/arm/mach-at91/board-sam9m10g45ek.c
++++ b/arch/arm/mach-at91/board-sam9m10g45ek.c
+@@ -234,7 +234,7 @@ static struct fb_monspecs at91fb_default_monspecs = {
+ /* Driver datas */
+ static struct atmel_lcdfb_info __initdata ek_lcdc_data = {
+ 	.lcdcon_is_backlight		= true,
+-	.default_bpp			= 32,
++	.default_bpp			= 16,
+ 	.default_dmacon			= ATMEL_LCDC_DMAEN,
+ 	.default_lcdcon2		= AT91SAM9G45_DEFAULT_LCDCON2,
+ 	.default_monspecs		= &at91fb_default_monspecs,
+diff --git a/arch/arm/mach-at91/clock.c b/arch/arm/mach-at91/clock.c
+index 76e421b..9113da6 100644
+--- a/arch/arm/mach-at91/clock.c
++++ b/arch/arm/mach-at91/clock.c
+@@ -127,12 +127,6 @@ static struct clk pllb = {
+ 	.type		= CLK_TYPE_PRIMARY | CLK_TYPE_PLL,
+ };
+ 
+-static struct clk vdec_clk = {
+-	.name		= "vdec_clk",
+-	.pmc_mask	= 1 << AT91SAM9G45_ID_VDEC,
+-	.type		= CLK_TYPE_PERIPHERAL,
+-};
+-
+ static void pmc_sys_mode(struct clk *clk, int is_on)
+ {
+ 	if (is_on)
+@@ -762,9 +756,6 @@ int __init at91_clock_init(unsigned long main_clock)
+ 	for (i = 0; i < ARRAY_SIZE(standard_pmc_clocks); i++)
+ 		list_add_tail(&standard_pmc_clocks[i]->node, &clocks);
+ 
+-	if(cpu_is_at91sam9m10())
+-		list_add_tail(&vdec_clk.node, &clocks);
+-
+ 	if (cpu_has_pllb())
+ 		list_add_tail(&pllb.node, &clocks);
+ 
+-- 
+1.6.3.3
+

@@ -1,0 +1,31 @@
+From 8e197d7ffa8014f0c120a9214611b1fd1bdf9049 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sat, 16 Apr 2011 01:18:23 +0200
+Subject: [PATCH 07/24] Bug workaround for channel in ac97
+
+This is only a workaround for channel handling in ac97 for AT91
+
+Signed-off-by: Nicolas Ferre <nicolas.ferre@atmel.com>
+
+Ported to linux-2.6.38
+Signed-off-by: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+---
+ sound/atmel/ac97c.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/sound/atmel/ac97c.c b/sound/atmel/ac97c.c
+index b310702..104f588 100644
+--- a/sound/atmel/ac97c.c
++++ b/sound/atmel/ac97c.c
+@@ -159,7 +159,7 @@ static struct snd_pcm_hardware atmel_ac97c_hw = {
+ 	.rates			= (SNDRV_PCM_RATE_CONTINUOUS),
+ 	.rate_min		= 4000,
+ 	.rate_max		= 48000,
+-	.channels_min		= 1,
++	.channels_min		= 2,
+ 	.channels_max		= 2,
+ 	.buffer_bytes_max	= 2 * 2 * 64 * 2048,
+ 	.period_bytes_min	= 4096,
+-- 
+1.6.3.3
+
