@@ -1,0 +1,29 @@
+From b9762bec96db98e1364670cb8b92f75cc5ab0a61 Mon Sep 17 00:00:00 2001
+From: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+Date: Sat, 16 Apr 2011 01:32:29 +0200
+Subject: [PATCH 11/24] at91: add pwm support in Kconfig for at91sam9g45
+
+Signed-off-by: Nicolas Ferre <nicolas.ferre@atmel.com>
+
+Ported to linux-2.6.38
+Signed-off-by: Ulf Samuelsson <ulf.samuelsson@atmel.com>
+---
+ drivers/misc/Kconfig |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index cc8e49d..5e77412 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -55,7 +55,7 @@ config AD525X_DPOT_SPI
+ 
+ config ATMEL_PWM
+ 	tristate "Atmel AT32/AT91 PWM support"
+-	depends on AVR32 || ARCH_AT91SAM9263 || ARCH_AT91SAM9RL || ARCH_AT91CAP9
++	depends on AVR32 || ARCH_AT91SAM9263 || ARCH_AT91SAM9RL || ARCH_AT91CAP9 || ARCH_AT91SAM9G45
+ 	help
+ 	  This option enables device driver support for the PWM channels
+ 	  on certain Atmel processors.  Pulse Width Modulation is used for
+-- 
+1.6.3.3
+
